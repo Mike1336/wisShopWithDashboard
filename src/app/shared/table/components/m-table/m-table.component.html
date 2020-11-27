@@ -1,0 +1,86 @@
+<div>
+  <div id="spinner" [ngClass]="{ show: loading$ | async }">
+    <div class="spinner-border text-success" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <table [ngClass]="{ withPaginator: config.pagination }">
+    <thead>
+      <tr>
+        <ng-container *ngFor="let column of columns">
+          <ng-container *ngIf="column.titleContent; else emptyTitle">
+            <ng-container *ngIf="isSortableColumn(column.title); else noSort">
+              <ng-container
+                *ngIf="
+                  selectedColumn?.column === column.title;
+                  else didntSelect
+                "
+              >
+                <th (click)="setSortColumn(column.title)">
+                  <ng-template
+                    [ngTemplateOutlet]="column.titleContent"
+                  ></ng-template>
+                  <ng-container
+                    *ngIf="selectedColumn?.direction === 'asc'; else desc"
+                  >
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up text-success" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                    </svg>                  
+                  </ng-container>
+                  <ng-template #desc>
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down text-success" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                    </svg>
+                  </ng-template>
+                </th>
+              </ng-container>
+
+              <ng-template #didntSelect>
+                <th (click)="setSortColumn(column.title)">
+                  <ng-template
+                    [ngTemplateOutlet]="column.titleContent"
+                  ></ng-template>
+                </th>
+              </ng-template>
+            </ng-container>
+            <ng-template #noSort>
+              <th>
+                <ng-template
+                  [ngTemplateOutlet]="column.titleContent"
+                ></ng-template>
+              </th>
+            </ng-template>
+          </ng-container>
+          <ng-template #emptyTitle>
+            <th></th>
+          </ng-template>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let phone of data">
+        <tr>
+          <ng-container *ngFor="let column of columns">
+            <td>
+              <ng-template
+                [ngTemplateOutlet]="column.templateRef"
+                [ngTemplateOutletContext]="{ $implicit: phone }"
+              >
+              </ng-template>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="config.actions">
+            <m-table-row-actions
+              [row]="phone"
+              [actions]="config.actions"
+            ></m-table-row-actions>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <ng-container *ngIf="config.pagination">
+    <m-table-paginator></m-table-paginator>
+  </ng-container>
+</div>

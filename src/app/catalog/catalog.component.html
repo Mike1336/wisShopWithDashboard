@@ -1,1 +1,47 @@
-<p>catalog works!</p>
+<div class="container mt-2">
+  <carousel></carousel>
+</div>
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-4">
+      <filters></filters>
+    </div>
+    <div class="col-8">
+      <div class="row">
+        <div class="col-12">
+          <category-navigation></category-navigation>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="tab-content" id="myTabContent">
+              <div
+                class="tab-pane fade show active"
+                id="home"
+                role="tabpanel"
+                aria-labelledby="home-tab"
+              >
+                <phones-container></phones-container>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="profile"
+                role="tabpanel"
+                aria-labelledby="profile-tab"
+              >
+                <tablets-container></tablets-container>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="contact"
+                role="tabpanel"
+                aria-labelledby="contact-tab"
+              >
+                <laptops-container></laptops-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
