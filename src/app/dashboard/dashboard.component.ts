@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IConfigFormat, IQueryParams } from '../shared/table/interfaces/response-format';
-
+import { IPhoneData } from './../layouts/table/interfaces/phone-data';
+import { IConfigFormat, IQueryParams } from './../layouts/table/interfaces/response-format';
 import { PhoneStoreService } from './../shared/services/phone-store.service';
 
 @Component({
@@ -29,19 +29,19 @@ export class DashboardComponent implements OnInit {
       actions: [
         {
           label: 'Move',
-          click: (row) => {
+          click: (row: IPhoneData) => {
             console.log('Row Move', row);
           },
         },
         {
           label: 'Edit',
-          click: (row) => {
+          click: (row: IPhoneData) => {
             console.log('Row Edit', row);
           },
         },
         {
           label: 'Delete',
-          click: (row) => {
+          click: (row: IPhoneData) => {
             console.log('Row Delete', row);
           },
         },
