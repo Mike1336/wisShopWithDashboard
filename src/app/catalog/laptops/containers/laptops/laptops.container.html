@@ -1,7 +1,30 @@
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-4">
-        <laptops-component></laptops-component>
+<div class="container-fluid">
+  <div class="row">
+    <div
+      [ngClass]="{'show': loadingStatus$ | async}"
+      class="spinner position-absolute h-100 w-100 d-flex justify-content-center align-items-center"
+    >
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
     </div>
+    <ng-container *ngFor="let laptop of data">
+      <div class="col d-flex justify-content-center">
+        <laptops-component [item]="laptop"></laptops-component>
+      </div>
+    </ng-container>
   </div>
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="records"
+        [(page)]="currentPage"
+        [pageSize]="pageSize"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="onChangePage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

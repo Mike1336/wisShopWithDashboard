@@ -32,7 +32,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi POCO X3',
         brand: 'Xiaomi',
         price: 19999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/poco-x3.png',
         images: [
           '',
           '',
@@ -43,7 +43,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi Redmi Note 9',
         brand: 'Xiaomi',
         price: 12999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/redmi-note-9.png',
         images: [
           '',
           '',
@@ -54,7 +54,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi Redmi Note 9S',
         brand: 'Xiaomi',
         price: 14999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/redmi-note-9s.png',
         images: [
           '',
           '',
@@ -65,7 +65,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi Redmi Note 9 Pro',
         brand: 'Xiaomi',
         price: 18999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/redmi-note-9-pro.png',
         images: [
           '',
           '',
@@ -76,7 +76,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi Mi Mix Alpha',
         brand: 'Xiaomi',
         price: 199990,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/mix-alpha.png',
         images: [
           '',
           '',
@@ -87,7 +87,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone SE',
         brand: 'Apple',
         price: 19999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/iphone-se.png',
         images: [
           '',
           '',
@@ -98,7 +98,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 6s',
         brand: 'Apple',
         price: 24999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/iphone-6s.png',
         images: [
           '',
           '',
@@ -109,7 +109,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone X',
         brand: 'Apple',
         price: 39999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/iphone-x.png',
         images: [
           '',
           '',
@@ -120,7 +120,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 11 Pro',
         brand: 'Apple',
         price: 79999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/iphone-11-pro.png',
         images: [
           '',
           '',
@@ -131,7 +131,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 12 Mini',
         brand: 'Apple',
         price: 69999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/iphone-12-mini.png',
         images: [
           '',
           '',
@@ -142,7 +142,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 12 Pro',
         brand: 'Apple',
         price: 79999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/iphone-12-pro.png',
         images: [
           '',
           '',
@@ -153,7 +153,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 12 Pro Max',
         brand: 'Apple',
         price: 99999,
-        mainImage: '',
+        mainImage: './../../assets/images/phones/iphone-12-pro-max.png',
         images: [
           '',
           '',

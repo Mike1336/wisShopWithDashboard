@@ -142,7 +142,7 @@ export class TableService implements OnDestroy {
             }
 
             if (this._sort.enable) {
-              query = { ...query, ...this._sort.query }; // 30.02.2020  00:00 isDate && isValid
+              query = { ...query, ...this._sort.query };
             }
 
             return this._config.fetch(query as IQueryParams);

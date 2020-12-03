@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { DataService } from './services/data.service';
 import { CarouselModule } from './../layouts/carousel/carousel.module';
 import { CatalogRoutingModule } from './catalog-routing.module';
 import { CatalogComponent } from './catalog.component';
@@ -40,6 +41,9 @@ import { CategoryNavigationContainer } from './containers/category-navigation/ca
     // Own
     CatalogRoutingModule,
     CarouselModule,
+  ],
+  providers: [
+    DataService,
   ],
 })
 export class CatalogModule { }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { IProductDataFormat } from './../../../../core/interfaces/data-formats';
 
@@ -6,6 +6,7 @@ import { IProductDataFormat } from './../../../../core/interfaces/data-formats';
   selector: 'phones-component',
   templateUrl: './phones.component.html',
   styleUrls: ['./phones.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhonesComponent implements OnInit {
 

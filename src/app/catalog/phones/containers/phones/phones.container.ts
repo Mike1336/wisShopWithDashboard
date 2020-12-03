@@ -1,30 +1,39 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
-import { ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { DataService } from './../../../services/data.service';
 import { IProductDataFormat } from './../../../../core/interfaces/data-formats';
 import { IQueryParams } from './../../../../layouts/table/interfaces/response-format';
-import { PhonesService } from './../../services/phones.service';
 
 @Component({
   selector: 'phones-container',
   templateUrl: './phones.container.html',
   styleUrls: ['./phones.container.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhonesContainer implements OnInit, OnDestroy {
+
+  public records = 0;
+  public currentPage = 1;
+  public pageSize = 5;
 
   public data!: IProductDataFormat[];
 
   private _destroy$ = new ReplaySubject<void>();
 
-  constructor(private _phonesService: PhonesService) { }
+  constructor(private _dataService: DataService) { }
+
+  public get loadingStatus$(): Observable<boolean> {
+    return this._dataService.loadingStatus$;
+  }
 
   public ngOnInit(): void {
     this._listenData();
     this.getData({
-      page: 2,
-      pageSize: 5,
+      page: this.currentPage,
+      pageSize: this.pageSize,
     });
   }
 
@@ -34,18 +43,24 @@ export class PhonesContainer implements OnInit, OnDestroy {
   }
 
   public getData(params: IQueryParams): void {
-    this._phonesService.getData(params);
+    this._dataService.getPhones(params);
+  }
+
+  public onChangePage(pageNumber: number): void {
+    this.currentPage = pageNumber;
+    this.getData({ page: this.currentPage, pageSize: this.pageSize });
   }
 
   private _listenData(): void {
-    this._phonesService.dataStream$
+    this._dataService.dataStream$
       .pipe(
         takeUntil(this._destroy$),
       )
       .subscribe({
         next: (responce) => {
           this.data = responce.data;
-          console.log(responce)
+          this.records = responce.paging.records;
+          console.log(responce);
         },
         error: (error) => {
           console.error(error);

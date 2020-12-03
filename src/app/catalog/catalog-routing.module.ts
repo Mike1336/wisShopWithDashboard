@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LaptopsContainer } from './laptops/containers/laptops/laptops.container';
-import { TabletsContainer } from './tablets/containers/tablets/tablets.container';
-import { PhonesContainer } from './phones/containers/phones/phones.container';
 import { CatalogComponent } from './catalog.component';
 
 const routes: Routes = [
@@ -13,15 +10,15 @@ const routes: Routes = [
     children: [
       {
         path: 'phones',
-        component: PhonesContainer,
+        loadChildren: () => import('./phones/phones.module').then((m) => m.PhonesModule),
       },
       {
         path: 'tablets',
-        component: TabletsContainer,
+        loadChildren: () => import('./tablets/tablets.module').then((m) => m.TabletsModule),
       },
       {
         path: 'laptops',
-        component: LaptopsContainer,
+        loadChildren: () => import('./laptops/laptops.module').then((m) => m.LaptopsModule),
       },
       {
         path: '',
