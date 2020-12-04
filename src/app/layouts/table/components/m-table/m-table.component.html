@@ -1,10 +1,10 @@
-<div>
+<div class="w-100">
   <div id="spinner" [ngClass]="{ show: loading$ | async }">
     <div class="spinner-border text-success" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <table [ngClass]="{ withPaginator: config.pagination }">
+  <table class="w-100" [ngClass]="{ withPaginator: config.pagination }">
     <thead>
       <tr>
         <ng-container *ngFor="let column of columns">
@@ -58,20 +58,20 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let phone of data">
+      <ng-container *ngFor="let item of data">
         <tr>
           <ng-container *ngFor="let column of columns">
             <td>
               <ng-template
                 [ngTemplateOutlet]="column.templateRef"
-                [ngTemplateOutletContext]="{ $implicit: phone }"
+                [ngTemplateOutletContext]="{ $implicit: item }"
               >
               </ng-template>
             </td>
           </ng-container>
           <ng-container *ngIf="config.actions">
             <m-table-row-actions
-              [row]="phone"
+              [row]="item"
               [actions]="config.actions"
             ></m-table-row-actions>
           </ng-container>

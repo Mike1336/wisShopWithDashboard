@@ -19,8 +19,8 @@ export class LoginContainer implements OnInit, OnDestroy {
 
   private _destroy$: ReplaySubject<number> = new ReplaySubject(1);
 
-  public get loginLoading$(): Observable<boolean> {
-    return this._auth.loginLoading$;
+  public get checkingData$(): Observable<boolean> {
+    return this._auth.checkingDataForLogin$;
   }
 
   @ViewChild(LoginComponent)
@@ -53,8 +53,9 @@ export class LoginContainer implements OnInit, OnDestroy {
           this._router.navigate(['/admin/dashboard']);
         },
         error: (error) => {
+          console.log(error)
           this._auth.changeLoadingStatus(false);
-          const errMessage = error.error.error.message;
+          const errMessage = error.error?.error.message;
           if (errMessage === 'EMAIL_NOT_FOUND' || errMessage === 'INVALID_PASSWORD') {
             this.formError = 'Incorrect login or password';
           }

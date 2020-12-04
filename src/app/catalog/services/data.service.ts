@@ -1,18 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { delay } from 'rxjs/operators';
-import { ReplaySubject, Observable, BehaviorSubject } from 'rxjs';
+import { delay, share, tap, debounceTime } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 import { IProductResponceFormat } from '../../core/interfaces/data-formats';
 import { IQueryParams } from '../../layouts/table/interfaces/response-format';
 import { environment } from '../../../environments/environment';
-
-export const enum Breakpoints {
-    phones = 'phones',
-    tablets = 'tablets',
-    laptops = 'laptops',
-}
 
 @Injectable()
 
@@ -20,9 +14,9 @@ export class DataService {
 
   private _apiUrl = environment.apiUrl;
 
-  private _data!: any;
+  private _data = [];
 
-  private _dataStream$ = new ReplaySubject<IProductResponceFormat>(1);
+  private _dataStream$ = new Subject<IProductResponceFormat>();
 
   private _loadingStatus$ = new BehaviorSubject<boolean>(false);
 
@@ -36,37 +30,37 @@ export class DataService {
     return this._loadingStatus$.asObservable();
   }
 
-  public getPhones(params: IQueryParams): void {
-    this._getData(params, Breakpoints.phones);
-  }
-
-  public getTablets(params: IQueryParams): void {
-    this._getData(params, Breakpoints.tablets);
-  }
-
-  public getLaptops(params: IQueryParams): void {
-    this._getData(params, Breakpoints.laptops);
-  }
-
-  private _getData(params: IQueryParams, breakpoint: Breakpoints): void {
+  public startLoading(): void {
     this._loadingStatus$.next(true);
+  }
 
-    this._http.get(`${this._apiUrl}${breakpoint}`)
+  public stopLoading(): void {
+    this._loadingStatus$.next(false);
+  }
+
+  public getCategories(): Observable<any> {
+    return this._http.get(`${this._apiUrl}categories`);
+  }
+
+  public getData(category: string, params: IQueryParams): void {
+    this._http.get(`${this._apiUrl}${category}`)
       .pipe(
       delay(1500),
     )
       .subscribe({
         next: (data: any) => {
-          this._data = data;
+          if (!data.length) {
+            console.error('Data is not array');
 
+            return;
+          }
+          this._data = data;
           this._dataStream$.next(this._getDataInCorrectFormat(params));
-          this._loadingStatus$.next(false);
         },
         error: (error) => {
           console.error(error);
 
           this._dataStream$.error(error);
-          this._loadingStatus$.next(false);
         },
       });
   }

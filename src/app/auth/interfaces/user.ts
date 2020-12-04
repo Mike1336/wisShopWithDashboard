@@ -3,7 +3,4 @@ export interface IUser {
   password: string;
   returnSecureToken?: boolean;
 }
-export enum userTypes {
-  User,
-  Admin,
-}
+export type userRole = 'guest' | 'user' | 'admin';

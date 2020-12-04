@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { shareReplay, tap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { IFbResponse } from '../interfaces/fb-response';
-import { IUser } from '../interfaces/user';
+import { IUser, userRole } from '../interfaces/user';
 
 import { IResponseFormat } from './../../layouts/table/interfaces/response-format';
 
@@ -15,24 +15,33 @@ import { IResponseFormat } from './../../layouts/table/interfaces/response-forma
 })
 export class AuthService {
 
-  private _loginLoading$ = new BehaviorSubject<boolean>(false);
+  private _userRole$ = new ReplaySubject<userRole>(1);
+
+  private _checkingDataForLogin$ = new BehaviorSubject<boolean>(false);
 
   constructor(private _http: HttpClient) { }
 
-  public get loginLoading$() : Observable<boolean> {
-    return this._loginLoading$.asObservable();
+  public get checkingDataForLogin$() : Observable<boolean> {
+    return this._checkingDataForLogin$.asObservable();
+  }
+
+  public get userRole$(): Observable<userRole> {
+    return this._userRole$.asObservable()
+      .pipe(
+        shareReplay(),
+        );
   }
 
   public changeLoadingStatus(data: boolean): void {
-    this._loginLoading$.next(data);
+    this._checkingDataForLogin$.next(data);
   }
 
   public get token(): string | null {
-    if (!localStorage.getItem('fb-token-exp')) {
+    if (!sessionStorage.getItem('fb-token-exp')) {
       return null;
     }
     const now = +(new Date().getTime);
-    const expDate = +(new Date(localStorage.getItem('fb-token-exp') ?? '').getTime);
+    const expDate = +(new Date(sessionStorage.getItem('fb-token-exp') ?? '').getTime);
 
     if (now > expDate) {
       this.logout();
@@ -40,7 +49,7 @@ export class AuthService {
       return null;
     }
 
-    return localStorage.getItem('fb-token');
+    return sessionStorage.getItem('fb-token');
   }
 
   public login(user: IUser): Observable<IResponseFormat | unknown> {
@@ -57,6 +66,7 @@ export class AuthService {
 
   public logout(): void {
     this._setToken(null);
+    this._userRole$.next('guest');
   }
 
   public isAuth(): boolean {
@@ -65,7 +75,7 @@ export class AuthService {
 
   private _setToken(response: IFbResponse | any): void {
     if (!response || !('idToken' in response)) {
-      localStorage.clear();
+      sessionStorage.clear();
 
       return;
     }
@@ -73,8 +83,10 @@ export class AuthService {
     const now = new Date().getTime();
     const expDate = new Date(now + (+response.expiresIn * 1000));
 
-    localStorage.setItem('fb-token', response.idToken);
-    localStorage.setItem('fb-token-exp', expDate.toString());
+    sessionStorage.setItem('fb-token', response.idToken);
+    sessionStorage.setItem('fb-token-exp', expDate.toString());
+
+    this._userRole$.next('admin');
   }
 
 }

@@ -1,0 +1,42 @@
+<div class="container mt-2">
+  <app-carousel></app-carousel>
+</div>
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-md-5 col-xl-3 d-flex justify-content-center">
+      <app-filters></app-filters>
+    </div>
+    <div class="col-md-7 col-xl-9 d-flex justify-content-center">
+      <div class="row w-100">
+        <div class="col-12">
+          <nav mat-tab-nav-bar mat-align-tabs="center">
+            <a
+              mat-tab-link
+              *ngFor="let category of categories"
+              #rla="routerLinkActive"
+              [active]="rla.isActive"
+              [routerLink]="['/catalog', category.name | lowercase]"
+              routerLinkActive
+            >
+            <h6>
+              {{ category.name}}
+            </h6>
+            </a>
+          </nav>
+          <div
+          [ngClass]="{ 'show': loadingStatus$ | async }"
+          class="spinner position-absolute h-100 w-100 d-flex justify-content-center align-items-center"
+        >
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <ng-container *ngIf="currentCategory">
+          <category-content
+            [category]="currentCategory"
+          ></category-content>
+        </ng-container>        
+      </div>
+    </div>
+  </div>
+</div>
