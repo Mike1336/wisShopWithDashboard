@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 import { MatTabNav, MatTabsModule } from '@angular/material/tabs';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { DataStorageService } from '../core/services/data-storage.service';
@@ -18,7 +20,6 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { CategoryContentContainer } from './containers/category-content/category-content.container';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
-import { CategoryNavigationContainer } from './containers/category-navigation/category-navigation.container';
 
 
 @NgModule({
@@ -28,7 +29,6 @@ import { CategoryNavigationContainer } from './containers/category-navigation/ca
     FiltersComponent,
     ProductItemComponent,
     CategoryContentContainer,
-    CategoryNavigationContainer,
   ],
   imports: [
     // Angular
@@ -36,10 +36,11 @@ import { CategoryNavigationContainer } from './containers/category-navigation/ca
     RouterModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(DataStorageService),
-    // ng-bootstrap
-    NgbModule,
     // Material
     MatTabsModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
     // Own
     CatalogRoutingModule,
     CarouselModule,

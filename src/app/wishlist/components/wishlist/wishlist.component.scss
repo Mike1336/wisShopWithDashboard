@@ -1,0 +1,40 @@
+@import '../../../../styles.scss';
+
+h1{
+    color: white;
+    text-align: center;
+    margin: 16px 0;
+}
+#favorites{
+    display: flex;
+    flex-direction: column;
+    mat-card{
+        max-width: 50%;
+        margin-top: 10px;
+        @include pos-center;
+
+        p{
+            text-align: center;
+            cursor: pointer;
+        }
+        button{
+            @include pos-right;
+        }
+        .addCart{
+            @include pos-left;
+        }        
+    }
+    img{
+        width: auto;
+        height: 150px;
+        @include pos-center;
+        cursor: pointer;
+    }
+}
+.button-container{
+    button{
+        color: #202020;
+        background-color: #f5f5f5;
+        @include pos-center;
+    }
+}

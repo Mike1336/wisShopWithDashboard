@@ -1,0 +1,8 @@
+<div id="topModal">
+    <h1 mat-dialog-title>Confirming delete </h1>
+    <mat-icon> clear</mat-icon>
+</div>
+<div mat-dialog-content>Are you sure want to delete {{item.name}} from cart?</div>
+<div mat-dialog-actions>
+<button mat-button color="warn" [mat-dialog-close]="confirm()">Yes</button>
+</div>

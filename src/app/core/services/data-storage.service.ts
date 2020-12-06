@@ -167,7 +167,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'iPad Pro 12.9"',
         brand: 'Apple',
         price: 99999,
-        mainImage: '',
+        mainImage: './../../assets/images/tablets/ipad-pro-12,9.jpg',
         images: [
           '',
           '',
@@ -178,7 +178,7 @@ export class DataStorageService implements InMemoryDbService {
         name: 'iPad Air 10.5"',
         brand: 'Apple',
         price: 79999,
-        mainImage: '',
+        mainImage: './../../assets/images/tablets/ipad-air-10,5.jpg',
         images: [
           '',
           '',
@@ -186,10 +186,10 @@ export class DataStorageService implements InMemoryDbService {
       },
       {
         id: 3,
-        name: 'iPad Mini 4"',
+        name: 'iPad Mini 2019"',
         brand: 'Apple',
         price: 29999,
-        mainImage: '',
+        mainImage: './../../assets/images/tablets/ipad-mini-2019.jpg',
         images: [
           '',
           '',
@@ -200,10 +200,10 @@ export class DataStorageService implements InMemoryDbService {
     const laptops: IProductDataFormat[] = [
       {
         id: 1,
-        name: 'Lenovo ThinkPad T410',
-        brand: 'Lenovo',
-        price: 49999,
-        mainImage: '',
+        name: 'Apple MacBook Air 13.3" 2019',
+        brand: 'Apple',
+        price: 89999,
+        mainImage: './../../assets/images/laptops/macbook-13-2019.jpg',
         images: [
           '',
           '',
@@ -211,10 +211,10 @@ export class DataStorageService implements InMemoryDbService {
       },
       {
         id: 2,
-        name: 'Lenovo ThinkPad T420',
-        brand: 'Lenovo',
-        price: 59999,
-        mainImage: '',
+        name: 'Apple MacBook Pro 13.3" M1',
+        brand: 'Apple',
+        price: 129999,
+        mainImage: './../../assets/images/laptops/macbook-13-m1.jpg',
         images: [
           '',
           '',
@@ -222,43 +222,10 @@ export class DataStorageService implements InMemoryDbService {
       },
       {
         id: 3,
-        name: 'Apple MacBook Air 13"',
-        brand: 'Apple',
-        price: 79999,
-        mainImage: '',
-        images: [
-          '',
-          '',
-        ],
-      },
-      {
-        id: 4,
-        name: 'Apple MacBook Pro 13"',
-        brand: 'Apple',
-        price: 89999,
-        mainImage: '',
-        images: [
-          '',
-          '',
-        ],
-      },
-      {
-        id: 5,
-        name: 'Apple MacBook Air 16"',
-        brand: 'Apple',
-        price: 89999,
-        mainImage: '',
-        images: [
-          '',
-          '',
-        ],
-      },
-      {
-        id: 6,
         name: 'Apple MacBook Pro 16"',
         brand: 'Apple',
         price: 99999,
-        mainImage: '',
+        mainImage: './../../assets/images/laptops/macbook-16-2019.jpg',
         images: [
           '',
           '',

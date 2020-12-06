@@ -1,0 +1,25 @@
+img{
+    height: 400px;
+}
+h2{
+    text-align: center;
+}
+#modalHeader{
+    display: flex;
+    justify-content: space-between;
+    mat-icon{
+        cursor: pointer;
+    }
+}
+#topContent{
+    display: flex;
+    p{
+        margin-left: 40px;
+    }
+}
+#modalBottom{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+

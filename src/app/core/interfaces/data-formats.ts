@@ -20,3 +20,7 @@ export interface IProductResponceFormat {
     offset: number;
   };
 }
+
+export interface ICartItem extends IProductDataFormat {
+  quantity: number;
+}

@@ -1,4 +1,4 @@
-<div class="container mt-2">
+<div class="container mt-2 mb-2">
   <app-carousel></app-carousel>
 </div>
 <div class="container-fluid mt-5">
@@ -18,9 +18,7 @@
               [routerLink]="['/catalog', category.name | lowercase]"
               routerLinkActive
             >
-            <h6>
               {{ category.name}}
-            </h6>
             </a>
           </nav>
           <div

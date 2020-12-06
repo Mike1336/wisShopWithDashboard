@@ -1,3 +1,12 @@
-img {
-    height: 340px;
+.product-card {
+    max-width: 400px;
+    img {
+        height: 340px;
+        width: auto;
+    }
 }
+.favorite{
+    color: #ed4535;
+    transition: .5s;
+}
+    

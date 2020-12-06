@@ -11,6 +11,14 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
+    path: 'wishlist',
+    loadChildren: () => import('./wishlist/wishlist.module').then((m) => m.WishlistModule),
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'catalog',

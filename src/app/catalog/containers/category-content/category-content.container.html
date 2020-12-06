@@ -2,11 +2,18 @@
   <div class="row">
     <ng-container *ngFor="let productItem of data">
       <div class="col d-flex justify-content-center">
-        <product-item [item]="productItem"></product-item>
+        <product-item 
+          [item]="productItem" 
+          [isInWishlist]="wishlist.isExist(productItem)" 
+          [isInCart]="cart.isExist(productItem)"
+          (clickToContent)="openItemDetails($event)"
+          (clickToCart)="checkInCart($event)"
+          (clickToWish)="checkInWishlist($event)"
+        ></product-item>
       </div>
     </ng-container>
   </div>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col d-flex justify-content-center">
       <ngb-pagination
         [collectionSize]="records"
@@ -18,5 +25,5 @@
         (pageChange)="onChangePage()"
       ></ngb-pagination>
     </div>
-  </div>
+  </div> -->
 </div>

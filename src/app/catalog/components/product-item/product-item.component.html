@@ -1,12 +1,23 @@
-<div class="card mt-3" style="width: 18rem">
-  <img [src]="item.mainImage" class="card-img-top h-200px" alt="product image"/>
-  <div class="card-body">
-    <h5 class="card-title">{{ item.name }}</h5>
-    <h5 class="card-title">{{ item.price }}</h5>
-    <p class="card-text">
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
-    </p>
-    <a href="#" class="btn btn-primary">Add to card</a>
-  </div>
-</div>
+<mat-card class="product-card mt-5">
+  <img class="rounded mx-auto d-block" (click)="emitClickToContent()" mat-card-image [src]="item.mainImage" alt="Image of gadget">
+  <mat-card-content (click)="emitClickToContent()">
+    <mat-card-title class="text-center" (click)="emitClickToContent()">{{item.name}}</mat-card-title>
+    <mat-card-subtitle class="text-center" (click)="emitClickToContent()"><strong>{{item.price}} ₽</strong></mat-card-subtitle>
+  </mat-card-content>
+  <mat-card-actions class="d-flex justify-content-center">
+    <button mat-stroked-button color="warn" *ngIf="isInCart; else isNotInCart" (click)="emitClickToCart()">DELETE FROM CART</button>
+    <ng-template #isNotInCart>
+      <button mat-button (click)="emitClickToCart()">ADD TO CART</button>
+    </ng-template>
+    <button mat-stroked-button color="warn" *ngIf="isInWishlist; else isNotInWishlist" (click)="emitClickToWish()">
+      UNWISH
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <ng-template #isNotInWishlist>
+      <button mat-button (click)="emitClickToWish()">
+        WISH
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+    </ng-template>
+  </mat-card-actions>
+</mat-card>
