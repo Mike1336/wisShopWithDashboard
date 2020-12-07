@@ -163,7 +163,7 @@ export class DataStorageService implements InMemoryDbService {
 
     const tablets: IProductDataFormat[] = [
       {
-        id: 1,
+        id: 13,
         name: 'iPad Pro 12.9"',
         brand: 'Apple',
         price: 99999,
@@ -174,7 +174,7 @@ export class DataStorageService implements InMemoryDbService {
         ],
       },
       {
-        id: 2,
+        id: 14,
         name: 'iPad Air 10.5"',
         brand: 'Apple',
         price: 79999,
@@ -185,7 +185,7 @@ export class DataStorageService implements InMemoryDbService {
         ],
       },
       {
-        id: 3,
+        id: 15,
         name: 'iPad Mini 2019"',
         brand: 'Apple',
         price: 29999,
@@ -199,7 +199,7 @@ export class DataStorageService implements InMemoryDbService {
 
     const laptops: IProductDataFormat[] = [
       {
-        id: 1,
+        id: 16,
         name: 'Apple MacBook Air 13.3" 2019',
         brand: 'Apple',
         price: 89999,
@@ -210,7 +210,7 @@ export class DataStorageService implements InMemoryDbService {
         ],
       },
       {
-        id: 2,
+        id: 17,
         name: 'Apple MacBook Pro 13.3" M1',
         brand: 'Apple',
         price: 129999,
@@ -221,7 +221,7 @@ export class DataStorageService implements InMemoryDbService {
         ],
       },
       {
-        id: 3,
+        id: 18,
         name: 'Apple MacBook Pro 16"',
         brand: 'Apple',
         price: 99999,

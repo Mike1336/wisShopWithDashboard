@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 
+import { IProductDataFormat } from './../../../core/interfaces/data-formats';
 import { IPhoneData } from './phone-data';
 
 export interface IResponseFormat {
@@ -48,7 +49,7 @@ export type ConfigTablePagination = boolean | IConfigTablePagination;
 
 export interface IConfigTableAction {
   label: string;
-  click: (row: IPhoneData) => void;
+  click: (row: IProductDataFormat) => void;
 }
 
 export type DirectionKinds = 'asc' | 'desc';

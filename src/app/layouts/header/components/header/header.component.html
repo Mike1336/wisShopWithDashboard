@@ -1,7 +1,21 @@
-<mat-toolbar>
+<mat-toolbar class="fixed-top">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-1 offset-11">
+      <div class="col d-flex align-items-center">
+        <button mat-icon-button class="example-icon" (click)="emitBurgerClick()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div class="col d-flex align-items-center justify-content-center">
+        <app-search></app-search>
+      </div>
+      <div class="col d-flex justify-content-end align-items-center">
+        <button mat-icon-button [routerLink]="['cart']" class="example-icon">
+          <mat-icon *ngIf="cartLength; else simpleCartIcon" [matBadge]="cartLength" matBadgeColor="warn">shopping_cart</mat-icon>
+          <ng-template #simpleCartIcon>
+            <mat-icon>shopping_cart</mat-icon>
+          </ng-template>
+        </button>
         <ng-template [ngTemplateOutlet]="user"> </ng-template>
       </div>
     </div>
@@ -13,7 +27,7 @@
     <button mat-button [matMenuTriggerFor]="adminMenu">Admin</button>
     <mat-menu #adminMenu="matMenu" xPosition="before">
       <button mat-menu-item routerLink="/admin/dashboard">Dashboard</button>
-      <button mat-menu-item (click)="onLogoutClick()">Logout</button>
+      <button mat-menu-item (click)="emitLogoutClick()">Logout</button>
     </mat-menu>
   </ng-container>
   <ng-template #isNotAdmin>
@@ -21,7 +35,7 @@
       <button mat-button [matMenuTriggerFor]="userMenu">Username</button>
       <mat-menu #userMenu="matMenu" xPosition="before">
         <button mat-menu-item routerLink="/">Profile</button>
-        <button mat-menu-item (click)="onLogoutClick()">Logout</button>
+        <button mat-menu-item (click)="emitLogoutClick()">Logout</button>
       </mat-menu>
     </ng-container>
     <ng-template #guest>

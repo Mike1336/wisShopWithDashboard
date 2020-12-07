@@ -21,7 +21,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'catalog',
+    loadChildren: () => import('./preview/preview.module').then((m) => m.PreviewModule),
   },
 ];
 

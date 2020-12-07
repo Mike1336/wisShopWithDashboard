@@ -1,9 +1,10 @@
-<h1 *ngIf="wishlist.list.length; else emptyFavorites">Your favorite phones:</h1>
+<navbar-container></navbar-container>
+<h1 *ngIf="wishlist.list.length; else emptyFavorites">Your wishes:</h1>
 <ng-template #emptyFavorites> 
     <h1>Favorite list is empty :[</h1> 
     <div class="button-container">
-        <button routerLink = '/' mat-fab color="primary" aria-label="Example icon button with a delete icon">
-          <mat-icon>add</mat-icon>
+      <button [routerLink]="['/','catalog']" mat-fab color="primary">
+        <mat-icon>add</mat-icon>
         </button>
       </div>
 </ng-template>

@@ -1,3 +1,4 @@
+import { IProductDataFormat } from './../core/interfaces/data-formats';
 import { Component, OnInit } from '@angular/core';
 
 import { IPhoneData } from './../layouts/table/interfaces/phone-data';
@@ -29,19 +30,19 @@ export class DashboardComponent implements OnInit {
       actions: [
         {
           label: 'Move',
-          click: (row: IPhoneData) => {
+          click: (row: IProductDataFormat) => {
             console.log('Row Move', row);
           },
         },
         {
           label: 'Edit',
-          click: (row: IPhoneData) => {
+          click: (row: IProductDataFormat) => {
             console.log('Row Edit', row);
           },
         },
         {
           label: 'Delete',
-          click: (row: IPhoneData) => {
+          click: (row: IProductDataFormat) => {
             console.log('Row Delete', row);
           },
         },

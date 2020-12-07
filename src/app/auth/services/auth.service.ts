@@ -15,7 +15,7 @@ import { IResponseFormat } from './../../layouts/table/interfaces/response-forma
 })
 export class AuthService {
 
-  private _userRole$ = new ReplaySubject<userRole>(1);
+  private _userRole$!: ReplaySubject<userRole>;
 
   private _checkingDataForLogin$ = new BehaviorSubject<boolean>(false);
 
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   public get userRole$(): Observable<userRole> {
-    return this._userRole$.asObservable()
+    return this._userRole$?.asObservable()
       .pipe(
         shareReplay(),
         );
@@ -66,7 +66,6 @@ export class AuthService {
 
   public logout(): void {
     this._setToken(null);
-    this._userRole$.next('guest');
   }
 
   public isAuth(): boolean {
@@ -76,6 +75,10 @@ export class AuthService {
   private _setToken(response: IFbResponse | any): void {
     if (!response || !('idToken' in response)) {
       sessionStorage.clear();
+      if (!this._userRole$) {
+        this._userRole$ = new ReplaySubject<userRole>(1);
+      }
+      this._userRole$?.next('guest');
 
       return;
     }
@@ -85,8 +88,10 @@ export class AuthService {
 
     sessionStorage.setItem('fb-token', response.idToken);
     sessionStorage.setItem('fb-token-exp', expDate.toString());
-
-    this._userRole$.next('admin');
+    if (!this._userRole$) {
+      this._userRole$ = new ReplaySubject<userRole>(1);
+    }
+    this._userRole$?.next('admin');
   }
 
 }

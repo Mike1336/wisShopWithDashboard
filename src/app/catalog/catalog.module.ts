@@ -1,3 +1,4 @@
+import { NavbarModule } from './../shared/navbar/navbar.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabNav, MatTabsModule } from '@angular/material/tabs';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
@@ -14,7 +16,6 @@ import { DataStorageService } from '../core/services/data-storage.service';
 
 import { CatalogContainer } from './containers/catalog/catalog.container';
 import { DataService } from './services/data.service';
-import { CarouselModule } from './../layouts/carousel/carousel.module';
 import { CatalogRoutingModule } from './catalog-routing.module';
 import { FiltersComponent } from './components/filters/filters.component';
 import { CategoryContentContainer } from './containers/category-content/category-content.container';
@@ -41,9 +42,10 @@ import { CatalogComponent } from './components/catalog/catalog.component';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
+    MatSidenavModule,
     // Own
     CatalogRoutingModule,
-    CarouselModule,
+    NavbarModule
   ],
   providers: [
     DataService,

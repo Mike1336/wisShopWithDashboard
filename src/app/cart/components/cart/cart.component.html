@@ -1,3 +1,4 @@
+<navbar-container></navbar-container>
 <ng-container *ngIf="cart.list.length > 0; else emptyCart">
   <h1 id="cartHeader" >Cart items:</h1>
 
@@ -22,7 +23,7 @@
         <p class="itemPrice" (click)="openItemDetails(item)"><strong>{{item.price}} ₽</strong></p>
         <mat-form-field class="example-full-width" >
           <mat-label>Quantity</mat-label>
-          <input type="number" min ='0' max="10" matInput  [ngModel]="item.quantity" (ngModelChange)="checkQuantityOfItem(item)">
+          <input type="number" min ='0' max="10" matInput  [(ngModel)]="item.quantity" (ngModelChange)="checkQuantityOfItem(item)">
         </mat-form-field>
       </div>
   </mat-card>
@@ -33,7 +34,7 @@
 <ng-template #emptyCart>
   <h1>Cart is empty</h1>
   <div class="button-container">
-      <button routerLink = '/' mat-fab color="primary" aria-label="Example icon button with a delete icon">
+      <button [routerLink]="['/','catalog']" mat-fab color="primary">
         <mat-icon>add</mat-icon>
       </button>
     </div>

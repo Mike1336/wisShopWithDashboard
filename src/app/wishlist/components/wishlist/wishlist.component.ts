@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,15 +20,16 @@ import { IProductDataFormat } from './../../../core/interfaces/data-formats';
   styleUrls: ['./wishlist.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WishlistComponent implements OnDestroy {
+export class WishlistComponent implements OnInit, OnDestroy {
 
-  private destroy$ = new Subject<void>();
+  private _destroy$ = new Subject<void>();
 
   constructor(
     public dialog: MatDialog,
     private _cartService: CartService,
     private _wishlistService: WishlistService,
     private _snackBar: MatSnackBar,
+    private _cdRef: ChangeDetectorRef,
   ) { }
 
   public get cart(): Cart {
@@ -39,9 +40,13 @@ export class WishlistComponent implements OnDestroy {
     return this._wishlistService.wishlist;
   }
 
+  public ngOnInit(): void {
+    this._listenWishlistChanges();
+  }
+
   public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   public openDeleteConfirming(item: IProductDataFormat): void {
@@ -53,7 +58,7 @@ export class WishlistComponent implements OnDestroy {
     });
     confirmModal.afterClosed()
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntil(this._destroy$),
         )
       .subscribe((result) => { // получение данных после закрытия
         if (!result) {
@@ -102,6 +107,18 @@ export class WishlistComponent implements OnDestroy {
   public checkItemForCart(item: IProductDataFormat): boolean {
     // для отображения иконки товаров из корзины
     return this.cart.isExist(item);
+  }
+
+  private _listenWishlistChanges(): void {
+    this.wishlist.change$
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(
+        () => {
+          this._cdRef.markForCheck();
+        },
+      );
   }
 
 }

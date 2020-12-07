@@ -13,12 +13,22 @@ export class HeaderComponent {
   @Input()
   public userRole!: userRole;
 
+  @Input()
+  public cartLength!: number;
+
   @Output()
   public logout = new EventEmitter();
 
+  @Output()
+  public clickToNavbar = new EventEmitter();
+
   constructor() { }
 
-  public onLogoutClick(): void {
+  public emitBurgerClick(): void {
+    this.clickToNavbar.emit();
+  }
+
+  public emitLogoutClick(): void {
     this.logout.emit();
   }
 

@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { ItemDetailsModule } from '../layouts/item-details/item-details.module';
+
+import { NavbarModule } from './../shared/navbar/navbar.module';
 import { DeleteConfirmingComponent } from './components/delete-confirming/delete-confirming.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CartRoutingModule } from './cart-routing.module';
@@ -38,6 +40,7 @@ import { CartRoutingModule } from './cart-routing.module';
     // Own
     ItemDetailsModule,
     CartRoutingModule,
+    NavbarModule,
   ],
 })
 export class CartModule { }

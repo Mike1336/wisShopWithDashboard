@@ -1,0 +1,6 @@
+<mat-drawer-container class="example-container" hasBackdrop [class.hide]="!drawer.opened">
+    <mat-drawer class="example-sidenav" mode="side">
+        <navbar-component (selectCategory)="changeNavDrawer(false)"></navbar-component>
+    </mat-drawer>
+  </mat-drawer-container>
+  

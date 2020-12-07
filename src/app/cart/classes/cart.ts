@@ -44,6 +44,10 @@ export class Cart {
     this._deleteItem(item);
   }
 
+  public calculateTotalPrice(): void {
+    this._updateTotalPrice();
+  }
+
   private _addItem(item: IProductDataFormat): void {
     this._list.push({ ...item, quantity: 1 });
     this._updateTotalPrice();
@@ -67,7 +71,7 @@ export class Cart {
             .reduce((prevItem, currItem) => {
               return prevItem + currItem;
             },
-            );
+          );
   }
 
 }

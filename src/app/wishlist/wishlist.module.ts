@@ -1,3 +1,4 @@
+import { NavbarModule } from './../shared/navbar/navbar.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ItemDetailsModule } from '../layouts/item-details/item-details.module';
+
 import { DeleteConfirmingComponent } from './components/delete-confirming/delete-confirming.component';
 import { WishlistRoutingModule } from './wishlist-routing.module';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
@@ -32,6 +34,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     // Own
     WishlistRoutingModule,
     ItemDetailsModule,
+    NavbarModule,
   ],
 })
 export class WishlistModule { }

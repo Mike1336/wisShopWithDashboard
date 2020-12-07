@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,15 +21,16 @@ import { ItemDetailsComponent } from './../../../layouts/item-details/components
   styleUrls: ['./cart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartComponent implements OnDestroy {
+export class CartComponent implements OnInit, OnDestroy {
 
-  private destroy$ = new Subject<void>();
+  private _destroy$ = new Subject<void>();
 
   constructor(
-    private _cartService: CartService,
-    public _wishlistService: WishlistService,
     public dialog: MatDialog,
+    private _cartService: CartService,
+    private _wishlistService: WishlistService,
     private _snackBar: MatSnackBar,
+    private _cdRef: ChangeDetectorRef,
     ) { }
 
   public get cart(): Cart {
@@ -40,13 +41,19 @@ export class CartComponent implements OnDestroy {
     return this._wishlistService.wishlist;
   }
 
+  public ngOnInit(): void {
+    this._listenCartChanges();
+  }
+
   public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   public checkQuantityOfItem(item: ICartItem): void {
     if (item.quantity > 0) {
+      this.cart.calculateTotalPrice();
+
       return;
     }
     this.openDeleteConfirming(item);
@@ -88,9 +95,11 @@ export class CartComponent implements OnDestroy {
       },
     });
     confirmModal.afterClosed()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this._destroy$))
       .subscribe((result) => { // получение данных после закрытия
         if (!result) {
+          item.quantity = 1;
+
           return;
         }
         this.deleteItem(item);
@@ -109,6 +118,18 @@ export class CartComponent implements OnDestroy {
         images,
       },
     });
+  }
+
+  private _listenCartChanges(): void {
+    this.cart.change$
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(
+        () => {
+          this._cdRef.markForCheck();
+        },
+      );
   }
 
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container h-100 d-flex justify-content-center align-items-center">
   <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <ng-container *ngIf="formError">
       <div class="alert alert-danger mt-3" role="alert">
@@ -28,7 +28,7 @@
     <ng-container *ngIf="loadingStatus$ | async; else formButtons">
       <button 
         type="submit" 
-        class="btn btn-primary"
+        class="btn btn-primary w-100"
       >
         <div class="spinner-border text-light" role="status">
           <span class="sr-only">Loading...</span>
@@ -38,7 +38,7 @@
     <ng-template #formButtons>
       <button
         type="submit"
-        class="btn btn-primary"
+        class="btn btn-primary w-100"
         [disabled]="loginForm.invalid"
       >
         Login
