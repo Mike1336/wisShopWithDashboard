@@ -1,0 +1,20 @@
+<mat-toolbar class="fixed-top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col d-flex align-items-center">
+        <button mat-icon-button class="example-icon" (click)="emitBurgerClick()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div class="col d-flex align-items-center justify-content-center">
+        <app-search></app-search>
+      </div>
+      <div class="col d-flex justify-content-end align-items-center">
+        <button mat-button [matMenuTriggerFor]="adminMenu">Admin</button>
+        <mat-menu #adminMenu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="emitLogoutClick()">Logout</button>
+        </mat-menu>
+          </div>
+    </div>
+  </div>
+</mat-toolbar>

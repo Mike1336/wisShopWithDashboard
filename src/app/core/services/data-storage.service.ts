@@ -32,6 +32,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi POCO X3',
         brand: 'Xiaomi',
         price: 19999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/poco-x3.png',
         images: [
           '',
@@ -43,6 +47,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi Redmi Note 9',
         brand: 'Xiaomi',
         price: 12999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/redmi-note-9.png',
         images: [
           '',
@@ -54,6 +62,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi Redmi Note 9S',
         brand: 'Xiaomi',
         price: 14999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/redmi-note-9s.png',
         images: [
           '',
@@ -65,6 +77,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi Redmi Note 9 Pro',
         brand: 'Xiaomi',
         price: 18999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/redmi-note-9-pro.png',
         images: [
           '',
@@ -76,6 +92,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Xiaomi Mi Mix Alpha',
         brand: 'Xiaomi',
         price: 199990,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/mix-alpha.png',
         images: [
           '',
@@ -87,6 +107,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone SE',
         brand: 'Apple',
         price: 19999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/iphone-se.png',
         images: [
           '',
@@ -98,6 +122,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 6s',
         brand: 'Apple',
         price: 24999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/iphone-6s.png',
         images: [
           '',
@@ -109,6 +137,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone X',
         brand: 'Apple',
         price: 39999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/iphone-x.png',
         images: [
           '',
@@ -120,6 +152,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 11 Pro',
         brand: 'Apple',
         price: 79999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/iphone-11-pro.png',
         images: [
           '',
@@ -131,6 +167,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 12 Mini',
         brand: 'Apple',
         price: 69999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/iphone-12-mini.png',
         images: [
           '',
@@ -142,6 +182,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 12 Pro',
         brand: 'Apple',
         price: 79999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/iphone-12-pro.png',
         images: [
           '',
@@ -153,6 +197,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple iPhone 12 Pro Max',
         brand: 'Apple',
         price: 99999,
+        category: {
+          id: 1,
+          name: 'Phones',
+        },
         mainImage: './../../assets/images/phones/iphone-12-pro-max.png',
         images: [
           '',
@@ -167,6 +215,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'iPad Pro 12.9"',
         brand: 'Apple',
         price: 99999,
+        category: {
+          id: 2,
+          name: 'Tablets',
+        },
         mainImage: './../../assets/images/tablets/ipad-pro-12,9.jpg',
         images: [
           '',
@@ -178,6 +230,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'iPad Air 10.5"',
         brand: 'Apple',
         price: 79999,
+        category: {
+          id: 2,
+          name: 'Tablets',
+        },
         mainImage: './../../assets/images/tablets/ipad-air-10,5.jpg',
         images: [
           '',
@@ -189,6 +245,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'iPad Mini 2019"',
         brand: 'Apple',
         price: 29999,
+        category: {
+          id: 2,
+          name: 'Tablets',
+        },
         mainImage: './../../assets/images/tablets/ipad-mini-2019.jpg',
         images: [
           '',
@@ -203,6 +263,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple MacBook Air 13.3" 2019',
         brand: 'Apple',
         price: 89999,
+        category: {
+          id: 3,
+          name: 'Laptops',
+        },
         mainImage: './../../assets/images/laptops/macbook-13-2019.jpg',
         images: [
           '',
@@ -214,6 +278,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple MacBook Pro 13.3" M1',
         brand: 'Apple',
         price: 129999,
+        category: {
+          id: 3,
+          name: 'Laptops',
+        },
         mainImage: './../../assets/images/laptops/macbook-13-m1.jpg',
         images: [
           '',
@@ -225,6 +293,10 @@ export class DataStorageService implements InMemoryDbService {
         name: 'Apple MacBook Pro 16"',
         brand: 'Apple',
         price: 99999,
+        category: {
+          id: 3,
+          name: 'Laptops',
+        },
         mainImage: './../../assets/images/laptops/macbook-16-2019.jpg',
         images: [
           '',

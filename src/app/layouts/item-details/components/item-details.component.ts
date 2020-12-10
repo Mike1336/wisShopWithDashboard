@@ -3,11 +3,12 @@ import { ChangeDetectionStrategy, Component, Inject, ChangeDetectorRef } from '@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { CartService } from './../../../cart/services/cart.service';
+import { CartService } from '../../../main/cart/services/cart.service';
+import { WishlistService } from '../../../main/wishlist/services/wishlist.service';
+import { Wishlist } from '../../../main/wishlist/classes/wishlist';
+import { Cart } from '../../../main/cart/classes/cart';
+
 import { IProductDataFormat } from './../../../core/interfaces/data-formats';
-import { WishlistService } from './../../../wishlist/services/wishlist.service';
-import { Wishlist } from './../../../wishlist/classes/wishlist';
-import { Cart } from './../../../cart/classes/cart';
 
 @Component({
   templateUrl: './item-details.component.html',

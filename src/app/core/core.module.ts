@@ -2,10 +2,12 @@ import { Inject, NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AuthGuard } from '../dashboard/guards/auth.guard';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-import { UnauthGuard } from './../dashboard/guards/unauth.guard';
-import { AuthModule } from './../auth/auth.module';
+import { AuthGuard } from '../auth/guards/auth.guard';
+import { UnauthGuard } from '../auth/guards/unauth.guard';
+
+import { DataStorageService } from './services/data-storage.service';
 
 
 @NgModule({
@@ -13,9 +15,9 @@ import { AuthModule } from './../auth/auth.module';
   imports: [
     BrowserAnimationsModule,
     HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(DataStorageService),
   ],
   providers: [
-    AuthModule,
     AuthGuard,
     UnauthGuard,
   ],

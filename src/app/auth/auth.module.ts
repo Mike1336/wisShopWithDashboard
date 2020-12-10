@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { LoginContainer } from './containers/login/login.container';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -17,8 +18,12 @@ import { LoginContainer } from './containers/login/login.container';
     // Angular
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule,
     // Own
     AuthRoutingModule,
+  ],
+  providers: [
+    AuthService,
   ],
 })
 export class AuthModule { }

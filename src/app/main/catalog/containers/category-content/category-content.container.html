@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <ng-container *ngIf="searchQuery">
+      <div class="container-fluid mt-5 d-flex justify-content-center flex-wrap">
+        <ng-container *ngIf="data.length; else empty">
+          <p class="lead w-100 text-center">Was found {{data.length}} items at your request: <strong>"{{searchQuery}}"</strong></p>
+        </ng-container>
+        <ng-template #empty>
+          <p class="lead w-100 text-center"> Nothing was found at your request: <strong>"{{searchQuery}}"</strong></p>
+        </ng-template>
+
+        <button type="button" class="btn btn-outline-danger" (click)="cancelSearch()">Show All Items In That Category</button>
+      </div>
+    </ng-container>
+    <ng-container *ngFor="let productItem of data">
+      <div class="col d-flex justify-content-center">
+        <product-item 
+          [item]="productItem" 
+          [isInWishlist]="wishlist.isExist(productItem)" 
+          [isInCart]="cart.isExist(productItem)"
+          (clickToContent)="openItemDetails($event)"
+          (clickToCart)="checkInCart($event)"
+          (clickToWish)="checkInWishlist($event)"
+        ></product-item>
+      </div>
+    </ng-container>
+  </div>
+  <!-- <div class="row">
+    <div class="col d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="records"
+        [(page)]="currentPage"
+        [pageSize]="pageSize"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="onChangePage()"
+      ></ngb-pagination>
+    </div>
+  </div> -->
+</div>

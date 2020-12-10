@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">It's admin panel</h1>
+          <p class="lead">This is the admin panel, which allows you to edit products data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <m-table [config]="config">
+        <m-table-column>
+          <ng-template mTableCell let-phone>
+            {{ phone.id }}
+          </ng-template>
+        </m-table-column>
+        <m-table-column>
+          <ng-template mTableColumnTitle="Name" [sort]="true">
+            <i><b>Name</b></i>
+          </ng-template>
+          <ng-template mTableCell let-phone>
+            {{ phone.name }}
+          </ng-template>
+        </m-table-column>
+        <m-table-column>
+          <ng-template mTableColumnTitle="Brand" [sort]="true">
+            <i><b>Brand</b></i>
+          </ng-template>
+          <ng-template mTableCell let-phone>
+            <i>{{ phone.brand }}</i>
+          </ng-template>
+        </m-table-column>
+        <m-table-column>
+          <ng-template mTableColumnTitle="Price" [sort]="true">
+            <i><b>Price</b></i>
+          </ng-template>
+          <ng-template mTableCell let-phone>
+            <b>{{ phone.price }} ₽</b>
+          </ng-template>
+        </m-table-column>
+      </m-table>
+    </div>
+  </div>
+  <div class="fixed-bottom mb-2 mr-5 d-flex justify-content-end">
+    <button mat-fab color="primary">
+      <mat-icon>add</mat-icon>
+    </button>
+
+  </div>
+</div>

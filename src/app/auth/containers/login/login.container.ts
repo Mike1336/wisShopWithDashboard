@@ -42,7 +42,9 @@ export class LoginContainer implements OnInit, OnDestroy {
   public login(user: IUser): void {
     this._auth.changeLoadingStatus(true);
 
-    this._auth.login(user)
+    this._auth.login(user);
+
+    this._auth.login$
       .pipe(
         takeUntil(this._destroy$),
       )

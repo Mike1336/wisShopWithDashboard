@@ -1,8 +1,0 @@
-<ng-container *ngIf="currentRoute !== '/'">
-<header-component 
-    [userRole]="userRole" 
-    [cartLength]="cart.list.length"
-    (logout)="logout()"
-    (clickToNavbar)="changeNavbarStatus()"
-></header-component>
-</ng-container>

@@ -2,20 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { shareReplay, tap } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { IFbResponse } from '../interfaces/fb-response';
 import { IUser, userRole } from '../interfaces/user';
 
-import { IResponseFormat } from './../../layouts/table/interfaces/response-format';
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthService {
 
-  private _userRole$!: ReplaySubject<userRole>;
+  private _userRole$ = new ReplaySubject<userRole>(1);
+
+  private _login$ = new ReplaySubject<void>(1);
 
   private _checkingDataForLogin$ = new BehaviorSubject<boolean>(false);
 
@@ -32,36 +30,51 @@ export class AuthService {
         );
   }
 
-  public changeLoadingStatus(data: boolean): void {
-    this._checkingDataForLogin$.next(data);
+  public get login$(): Observable<void> {
+    return this._login$.asObservable()
+      .pipe(
+        shareReplay(),
+        );
   }
 
   public get token(): string | null {
     if (!sessionStorage.getItem('fb-token-exp')) {
+      this._userRole$.next('guest');
+
       return null;
     }
-    const now = +(new Date().getTime);
-    const expDate = +(new Date(sessionStorage.getItem('fb-token-exp') ?? '').getTime);
-
+    const now = +(new Date().getTime());
+    const expDate = +(new Date(sessionStorage.getItem('fb-token-exp') ?? '').getTime());
     if (now > expDate) {
       this.logout();
 
       return null;
     }
+    this._userRole$.next('admin');
 
     return sessionStorage.getItem('fb-token');
   }
 
-  public login(user: IUser): Observable<IResponseFormat | unknown> {
+  public changeLoadingStatus(data: boolean): void {
+    this._checkingDataForLogin$.next(data);
+  }
+
+  public login(user: IUser): void {
     user.returnSecureToken = true;
 
-    return this._http.post(
+    this._http.post(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
         environment.apiKey
       }`, user)
-      .pipe(
-        tap(this._setToken),
-      );
+      .subscribe({
+        next: (response: IFbResponse | any) => {
+          this._setToken(response);
+          this._login$.next();
+        },
+        error: (error) => {
+          this._login$.error(error);
+        },
+      });
   }
 
   public logout(): void {
@@ -75,10 +88,7 @@ export class AuthService {
   private _setToken(response: IFbResponse | any): void {
     if (!response || !('idToken' in response)) {
       sessionStorage.clear();
-      if (!this._userRole$) {
-        this._userRole$ = new ReplaySubject<userRole>(1);
-      }
-      this._userRole$?.next('guest');
+      this._userRole$.next('guest');
 
       return;
     }
@@ -88,10 +98,7 @@ export class AuthService {
 
     sessionStorage.setItem('fb-token', response.idToken);
     sessionStorage.setItem('fb-token-exp', expDate.toString());
-    if (!this._userRole$) {
-      this._userRole$ = new ReplaySubject<userRole>(1);
-    }
-    this._userRole$?.next('admin');
+    this._userRole$.next('admin');
   }
 
 }

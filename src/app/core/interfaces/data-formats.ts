@@ -3,6 +3,7 @@ export interface IProductDataFormat {
   name: string;
   brand: string;
   price: number;
+  category: ICategoryFormat;
   mainImage: string;
   images: string[];
 }

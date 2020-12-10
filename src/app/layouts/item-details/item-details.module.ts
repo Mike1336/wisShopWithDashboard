@@ -12,7 +12,9 @@ import { ItemDetailsComponent } from './components/item-details.component';
     ItemDetailsComponent,
   ],
   imports: [
+    // Angular
     CommonModule,
+    // Angular Material
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
