@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <ng-container *ngIf="searchQuery">
+    <ng-container *ngIf="searchIsEnable && !(loadingStatus$ | async)">
       <div class="container-fluid mt-5 d-flex justify-content-center flex-wrap">
         <ng-container *ngIf="data.length; else empty">
           <p class="lead w-100 text-center">Was found {{data.length}} items at your request: <strong>"{{searchQuery}}"</strong></p>

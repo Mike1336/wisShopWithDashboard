@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit,
+  OnInit, ChangeDetectorRef,
 } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
@@ -22,6 +22,10 @@ import { userRole } from '../../../../auth/interfaces/user';
 })
 export class HeaderContainer implements OnInit, OnDestroy {
 
+  public get cart(): Cart {
+    return this._cartService.cart;
+  }
+
   public userRole!: userRole;
 
   public currentRoute!: string;
@@ -32,14 +36,12 @@ export class HeaderContainer implements OnInit, OnDestroy {
     private _auth: AuthService,
     private _navbarService: NavbarService,
     private _cartService: CartService,
+    private _cdRef: ChangeDetectorRef,
     ) { }
-
-  public get cart(): Cart {
-    return this._cartService.cart;
-  }
 
   public ngOnInit(): void {
     this._listenRole();
+    this._listenCartChanges();
   }
 
   public ngOnDestroy(): void {
@@ -55,6 +57,18 @@ export class HeaderContainer implements OnInit, OnDestroy {
     this._navbarService.changeStatus();
   }
 
+  private _listenCartChanges(): void {
+    this.cart.change$
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(
+        () => {
+          this._cdRef.markForCheck();
+        },
+      );
+  }
+
   private _listenRole(): void {
     this._auth.userRole$
       .pipe(
@@ -66,4 +80,5 @@ export class HeaderContainer implements OnInit, OnDestroy {
         },
       );
   }
+
 }

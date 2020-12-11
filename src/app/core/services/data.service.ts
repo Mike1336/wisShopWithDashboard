@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { createLogErrorHandler } from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 
 import { delay, share, tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
@@ -17,6 +18,8 @@ export class DataService {
 
   private _data = [];
 
+  private _category = '';
+
   private _data$ = new Subject<IProductResponceFormat>();
 
   private _loadingStatus$ = new BehaviorSubject<boolean>(false);
@@ -32,10 +35,12 @@ export class DataService {
   }
 
   public startLoading(): void {
+    console.log('start');
     this._loadingStatus$.next(true);
   }
 
   public stopLoading(): void {
+    console.log('stop');
     this._loadingStatus$.next(false);
   }
 
@@ -43,8 +48,8 @@ export class DataService {
     return this._http.get(`${this._apiUrl}categories`);
   }
 
-  public getDataByItemName(value: string, category: string): void {
-    this._http.get(`${this._apiUrl}${category}`)
+  public getDataByItemName(value: string): void {
+    this._http.get(`${this._apiUrl}${this._category}`)
       .subscribe({
         next: (data: any) => {
           if (!('length' in data)) {
@@ -66,9 +71,9 @@ export class DataService {
   }
 
   public getData(category: string, params?: IQueryParams): void {
+    this._category = category;
     this._http.get(`${this._apiUrl}${category}`)
       .pipe(
-      tap(() => this._loadingStatus$.next(true)),
       delay(1500),
     )
       .subscribe({

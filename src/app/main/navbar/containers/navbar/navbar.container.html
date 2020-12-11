@@ -3,9 +3,9 @@
   hasBackdrop
   [class.hide]="!drawer.opened"
 >
-  <mat-drawer (closed)="setDrawerStatus(false)" class="example-sidenav" mode="side">
+  <mat-drawer (closed)="hideDrawer()" class="example-sidenav" mode="side">
     <navbar-component
-      (selectCategory)="setDrawerStatus(false)"
+      (selectCategory)="hideDrawer()"
     ></navbar-component>
   </mat-drawer>
 </mat-drawer-container>

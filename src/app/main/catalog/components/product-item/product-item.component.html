@@ -1,4 +1,5 @@
 <mat-card class="product-card mt-5">
+
   <img class="rounded mx-auto d-block" (click)="emitClickToContent()" mat-card-image [src]="item.mainImage" alt="Image of gadget">
   <mat-card-content (click)="emitClickToContent()">
     <mat-card-title class="text-center" (click)="emitClickToContent()">{{item.name}}</mat-card-title>

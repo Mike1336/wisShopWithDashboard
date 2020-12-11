@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { pluck, takeUntil } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
@@ -21,6 +21,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
   constructor(
     private _dataService: DataService,
     private _route: ActivatedRoute,
+    private _cdRef: ChangeDetectorRef,
     ) { }
 
   public get loadingStatus$(): Observable<boolean> {
@@ -46,6 +47,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
         (categoryFromUrl: string) => {
           this._dataService.startLoading();
           this.currentCategory = categoryFromUrl;
+          this._cdRef.markForCheck();
         },
       );
   }

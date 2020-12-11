@@ -242,7 +242,7 @@ export class DataStorageService implements InMemoryDbService {
       },
       {
         id: 15,
-        name: 'iPad Mini 2019"',
+        name: 'iPad Mini 2019',
         brand: 'Apple',
         price: 29999,
         category: {

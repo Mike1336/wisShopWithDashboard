@@ -66,6 +66,10 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
     return this._wishlistService.wishlist;
   }
 
+  public get searchIsEnable(): boolean {
+    return this._searchService.isEnable;
+  }
+
   public ngOnInit(): void {
     this._listenData();
     this._listenCartChanges();
@@ -83,6 +87,7 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
   }
 
   public getData(category: string): void {
+    this._dataService.startLoading();
     this._dataService.getData(category, { page: this.currentPage, pageSize: this.pageSize });
   }
 
@@ -114,6 +119,7 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
   }
 
   public cancelSearch(): void {
+    this._dataService.startLoading();
     this._searchService.resetQuery();
     this.getData(this.category);
   }
@@ -124,9 +130,9 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe({
-        next: (responce) => {
-          this.data = responce.data;
-          this.records = responce.paging.records;
+        next: (response) => {
+          this.data = response.data;
+          this.records = response.paging.records;
           this._cdRef.markForCheck();
           this._dataService.stopLoading();
         },

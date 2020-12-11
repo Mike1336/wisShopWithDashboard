@@ -39,8 +39,8 @@ export class NavbarContainer implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
-  public setDrawerStatus(data: boolean): void {
-    this._navbarService.setStatus(data);
+  public hideDrawer(): void {
+    this._navbarService.setStatus(false);
   }
 
   private _listenNavStatus(): void {

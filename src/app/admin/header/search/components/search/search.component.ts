@@ -108,7 +108,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     //     },
     //   );
 
-    this._dataService.getDataByItemName(itemName, 'phones');
+    this._dataService.getDataByItemName(itemName);
   }
 
 }

@@ -9,7 +9,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ReplaySubject } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 
 import { DataService } from '../../../../../core/services/data.service';
 import { IProductDataFormat } from '../../../../../core/interfaces/data-formats';
@@ -72,6 +72,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.searchField.valueChanges
       .pipe(
         debounceTime(500),
+        tap(() => this._dataService.startLoading()),
         takeUntil(this._destroy$),
       )
       .subscribe({
@@ -83,7 +84,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private _searchItems(itemName: string): void {
     this._searchService.setQuery(itemName);
-    this._dataService.getDataByItemName(itemName, 'phones');
+    this._dataService.getDataByItemName(itemName);
   }
 
   private _listenSearchReset(): void {
