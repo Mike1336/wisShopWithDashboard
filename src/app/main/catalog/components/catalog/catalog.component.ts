@@ -1,10 +1,10 @@
 import { ActivatedRoute } from '@angular/router';
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { pluck, takeUntil } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { DataService } from '../../../../core/services/data.service';
+import { DataService } from '../../../services/data.service';
 @Component({
   selector: 'catalog-component',
   templateUrl: './catalog.component.html',

@@ -19,6 +19,10 @@ export class HeaderContainer implements OnInit {
     private _router: Router,
     ) { }
 
+  public get expTimeOfToken(): number {
+    return this._auth.expTimeOfToken;
+  }
+
   public ngOnInit(): void {
     this._checkLoginStatus();
   }

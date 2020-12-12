@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
-import { DataService } from '../core/services/data.service';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
 import { AuthModule } from '../auth/auth.module';
 import { ItemDetailsModule } from '../layouts/item-details/item-details.module';
+import { DataStorageService } from '../core/services/data-storage.service';
 
-import { PhoneStoreService } from './services/phone-store.service';
+import { DataService } from './services/data.service';
 import { NavbarModule } from './navbar/navbar.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -24,6 +27,8 @@ import { HeaderModule } from './header/header.module';
   imports: [
     // Angular
     CommonModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(DataStorageService),
     // Angular Material
     MatSidenavModule,
     MatButtonModule,
@@ -37,7 +42,6 @@ import { HeaderModule } from './header/header.module';
 
   ],
   providers: [
-    PhoneStoreService,
     NavbarService,
     DataService,
   ],

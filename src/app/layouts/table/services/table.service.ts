@@ -92,7 +92,6 @@ export class TableService implements OnDestroy {
 
       this._paginator = new Pagination(parameters);
       this._listenPagChanges();
-      this._listenFetch();
       this._fetch$.next();
     } else {
       this._sendAllFetchData();

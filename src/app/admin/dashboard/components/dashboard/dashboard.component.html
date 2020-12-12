@@ -1,15 +1,5 @@
-<div class="container mt-5">
-  <div class="row">
-    <div class="col">
-      <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <h1 class="display-4">It's admin panel</h1>
-          <p class="lead">This is the admin panel, which allows you to edit products data.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row justify-content-center">
+<div class="container h-100 d-flex align-items-center">
+  <div class="row w-100 justify-content-center">
     <div class="col-12">
       <m-table [config]="config">
         <m-table-column>
@@ -44,10 +34,9 @@
       </m-table>
     </div>
   </div>
-  <div class="fixed-bottom mb-2 mr-5 d-flex justify-content-end">
+  <div id="buttonForAdding">
     <button mat-fab color="primary">
       <mat-icon>add</mat-icon>
     </button>
-
   </div>
 </div>

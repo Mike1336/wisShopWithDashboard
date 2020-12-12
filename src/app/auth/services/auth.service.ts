@@ -8,8 +8,13 @@ import { environment } from '../../../environments/environment';
 import { IFbResponse } from '../interfaces/fb-response';
 import { IUser, userRole } from '../interfaces/user';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+},
+)
 export class AuthService {
+
+  public expTimeOfToken = 0;
 
   private _userRole$ = new ReplaySubject<userRole>(1);
 
@@ -44,8 +49,8 @@ export class AuthService {
       return null;
     }
     const now = +(new Date().getTime());
-    const expDate = +(new Date(sessionStorage.getItem('fb-token-exp') ?? '').getTime());
-    if (now > expDate) {
+    this.expTimeOfToken = +(new Date(sessionStorage.getItem('fb-token-exp') ?? '').getTime());
+    if (now > this.expTimeOfToken) {
       this.logout();
 
       return null;

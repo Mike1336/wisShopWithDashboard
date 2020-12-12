@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReplaySubject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 
-import { DataService } from '../../../../../core/services/data.service';
+import { DataService } from '../../../../services/data.service';
 import { IProductDataFormat } from '../../../../../core/interfaces/data-formats';
 import { ItemDetailsComponent } from '../../../../../layouts/item-details/components/item-details.component';
 import { SearchService } from '../../services/search.service';

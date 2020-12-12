@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { TableModule } from '../../layouts/table/table.module';
@@ -18,6 +19,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     CommonModule,
     // Angular Material
     MatIconModule,
+    MatButtonModule,
     // Own
     DashboardRoutingModule,
     TableModule,

@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { SearchComponent } from './components/search/search.component';
@@ -22,7 +21,6 @@ import { SearchComponent } from './components/search/search.component';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    MatAutocompleteModule,
   ],
   exports: [
     SearchComponent,

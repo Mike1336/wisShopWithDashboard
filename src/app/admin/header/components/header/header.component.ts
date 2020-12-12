@@ -1,4 +1,6 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
+import {
+  Component, Output, EventEmitter, ChangeDetectionStrategy, Input, OnInit, ChangeDetectorRef 
+} from '@angular/core';
 
 import { userRole } from '../../../../auth/interfaces/user';
 
@@ -8,13 +10,13 @@ import { userRole } from '../../../../auth/interfaces/user';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   @Input()
   public userRole!: userRole;
 
   @Input()
-  public cartLength!: number;
+  public expTimeOfToken!: number;
 
   @Output()
   public logout = new EventEmitter();
@@ -22,7 +24,13 @@ export class HeaderComponent {
   @Output()
   public clickToNavbar = new EventEmitter();
 
-  constructor() { }
+  public expTimer = '00:00';
+
+  constructor(private _cdRef: ChangeDetectorRef) { }
+
+  public ngOnInit(): void {
+    this._runTimer();
+  }
 
   public emitBurgerClick(): void {
     this.clickToNavbar.emit();
@@ -30,6 +38,26 @@ export class HeaderComponent {
 
   public emitLogoutClick(): void {
     this.logout.emit();
+  }
+
+  private _runTimer(): void {
+    let now;
+    let minutes;
+    let seconds;
+
+    setInterval(() => {
+      now = +(new Date().getTime());
+      minutes = new Date(this.expTimeOfToken - now).getMinutes();
+      seconds = new Date(this.expTimeOfToken - now).getSeconds();
+
+      if (`${seconds}`.length === 1) {
+        seconds = `0${seconds}`;
+      }
+
+      this.expTimer = `${minutes}:${seconds}`;
+
+      this._cdRef.markForCheck();
+    }, 1000);
   }
 
 }

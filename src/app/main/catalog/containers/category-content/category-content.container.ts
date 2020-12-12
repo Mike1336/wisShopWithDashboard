@@ -15,7 +15,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { SearchService } from '../../../header/search/services/search.service';
-import { DataService } from '../../../../core/services/data.service';
+import { DataService } from '../../../services/data.service';
 import { ItemDetailsComponent } from '../../../../layouts/item-details/components/item-details.component';
 import { WishlistService } from '../../../wishlist/services/wishlist.service';
 import { Wishlist } from '../../../wishlist/classes/wishlist';
@@ -87,8 +87,13 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
   }
 
   public getData(category: string): void {
+    const params = {
+      page: this.currentPage,
+      pageSize: this.pageSize,
+    };
+
     this._dataService.startLoading();
-    this._dataService.getData(category, { page: this.currentPage, pageSize: this.pageSize });
+    this._dataService.getDataOfCategory(category, params);
   }
 
   public onChangePage(): void {

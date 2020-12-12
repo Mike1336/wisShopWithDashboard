@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PhoneStoreService } from '../../../services/phone-store.service';
+import { DataService } from '../../../services/data.service';
 
 import {
   IConfigFormat,
@@ -17,17 +17,17 @@ export class DashboardComponent implements OnInit {
 
   public config!: IConfigFormat;
 
-  constructor(private _phoneStoreService: PhoneStoreService) { }
+  constructor(private _dataService: DataService) { }
 
   public ngOnInit(): void {
     this.config = {
       fetch: (query: IQueryParams) => {
         console.log(query);
 
-        return this._phoneStoreService.getData(query);
+        return this._dataService.getData(query);
       },
       pagination: {
-        limits: [1, 2, 5, 10, 12],
+        limits: [1, 2, 5, 10, 15, 25],
         pageSize: 10,
       },
       actions: [

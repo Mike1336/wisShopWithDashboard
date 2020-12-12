@@ -305,7 +305,13 @@ export class DataStorageService implements InMemoryDbService {
       },
     ];
 
-    return { categories, phones, tablets, laptops };
+    const all = [
+      ...phones,
+      ...tablets,
+      ...laptops,
+    ];
+
+    return { categories, all, phones, tablets, laptops };
   }
 
 }

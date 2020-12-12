@@ -1,4 +1,1 @@
-<header-component 
-    (logout)="logout()"
-    (clickToNavbar)="changeNavbarStatus()"
-></header-component>
+<header-component [expTimeOfToken]="expTimeOfToken" (logout)="logout()" (clickToNavbar)="changeNavbarStatus()"></header-component>
