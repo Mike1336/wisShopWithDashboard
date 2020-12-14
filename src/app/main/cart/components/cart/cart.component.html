@@ -1,44 +1,98 @@
-
-<div class="container-fluid d-flex justify-content-center align-items-center h-100 flex-wrap">
+<div class="container-fluid">
   <ng-container *ngIf="cart.list.length; else emptyCart">
-    <h1 id="cartHeader" >Cart items:</h1>
-
-    <div>
-      <mat-card *ngFor="let item of cart.list">
-        <mat-card-header>
-          <button mat-icon-button *ngIf="checkItemForFav(item); else notInCart" class="example-icon addCart" (click)="checkInWishlist(item)">
-            <mat-icon color="warn">favorite</mat-icon>
-          </button>
-          <ng-template #notInCart>
-            <button mat-icon-button  class="example-icon addCart" (click)="checkInWishlist(item)">
-              <mat-icon>favorite</mat-icon>
-            </button>
-          </ng-template>
-          <button mat-icon-button  class="example-icon favorite-icon" (click)="openDeleteConfirming(item)" >
-            <mat-icon>delete_sweep</mat-icon>
-          </button>
-        </mat-card-header>
-        <img mat-card-image [src]="item.mainImage" (click)="openItemDetails(item)">
-        <div id="itemInfo">
-          <p class="itemName" (click)="openItemDetails(item)">{{item.name}}</p>
-          <p class="itemPrice" (click)="openItemDetails(item)"><strong>{{item.price}} ₽</strong></p>
-          <mat-form-field class="example-full-width" >
-            <mat-label>Quantity</mat-label>
-            <input type="number" min ='0' max="10" matInput  [(ngModel)]="item.quantity" (ngModelChange)="checkQuantityOfItem(item)">
-          </mat-form-field>
+    <div class="row">
+      <div class="col-8">
+        <div class="container products">
+          <div class="row justify-content-center">
+            <div class="col-9 mt-2 mb-2" *ngFor="let item of cart.list">
+              <mat-card>
+                <mat-card-header class="justify-content-between">
+                  <button
+                    mat-icon-button
+                    *ngIf="checkItemForFav(item); else notInCart"
+                    class="example-icon addCart"
+                    (click)="checkInWishlist(item)"
+                  >
+                    <mat-icon color="warn">favorite</mat-icon>
+                  </button>
+                  <ng-template #notInCart>
+                    <button
+                      mat-icon-button
+                      class="example-icon addCart"
+                      (click)="checkInWishlist(item)"
+                    >
+                      <mat-icon>favorite</mat-icon>
+                    </button>
+                  </ng-template>
+                  <button
+                    mat-icon-button
+                    class="example-icon favorite-icon"
+                    (click)="openDeleteConfirming(item)"
+                  >
+                    <mat-icon>delete_sweep</mat-icon>
+                  </button>
+                </mat-card-header>
+                <mat-card-content class="d-flex justify-content-around">
+                  <img
+                    class="img-fluid"
+                    [src]="item.mainImage"
+                    (click)="openItemDetails(item)"
+                  />
+                  <div id="itemInfo">
+                    <p class="itemName" (click)="openItemDetails(item)">
+                      {{ item.name }}
+                    </p>
+                    <p class="itemPrice" (click)="openItemDetails(item)">
+                      <strong>{{ item.price }} ₽</strong>
+                    </p>
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Quantity</mat-label>
+                      <input
+                        type="number"
+                        min="0"
+                        max="10"
+                        matInput
+                        [(ngModel)]="item.quantity"
+                        (ngModelChange)="checkQuantityOfItem(item)"
+                      />
+                    </mat-form-field>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
         </div>
-      </mat-card>
+      </div>
+      <div class="col-4 shortOrderInfo">
+        <mat-card>
+          <mat-card-title class="text-center"> Your order: </mat-card-title>
+          <mat-card-content>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let item of cart.list">
+                {{ item.name }} (x{{ item.quantity }}) -----
+                {{ item.price * item.quantity }} ₽
+              </li>
+            </ul>
+          </mat-card-content>
+          <mat-card-footer
+            class="border-top p-3 d-flex flex-wrap justify-content-center"
+          >
+            <h5 class="text-center">
+              Total order price is {{ cart.totalPrice }} ₽
+            </h5>
+            <button type="button" class="btn btn-success w-75">Checkout</button>
+          </mat-card-footer>
+        </mat-card>
+      </div>
     </div>
-    <h2>Total price is {{ cart.totalPrice }} ₽</h2>
   </ng-container>
 
   <ng-template #emptyCart>
     <h1 class="w-100 text-center">Cart is empty</h1>
     <div class="button-container">
-      <button [routerLink]="['/','catalog']" mat-fab color="primary">
+      <button [routerLink]="['/', 'catalog']" mat-fab color="primary">
         <mat-icon>add</mat-icon>
       </button>
     </div>
   </ng-template>
 </div>
-
