@@ -13,6 +13,7 @@ import { CatalogRoutingModule } from './catalog-routing.module';
 import { CategoryContentContainer } from './containers/category-content/category-content.container';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { CatalogComponent } from './components/catalog/catalog.component';
     CatalogContainer,
     ProductItemComponent,
     CategoryContentContainer,
+    PaginatorComponent,
   ],
   imports: [
     // Angular

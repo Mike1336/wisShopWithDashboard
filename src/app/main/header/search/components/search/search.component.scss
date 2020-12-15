@@ -6,7 +6,9 @@ form{
         }
     }
 }
-.miniImg {
-    height: 30px;
-    width: auto;
+
+mat-form-field {
+    ::ng-deep .mat-form-field-wrapper {
+        padding: 0;
+    }
 }

@@ -35,7 +35,11 @@ $wisShopWithAdmin-theme: mat-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
+// Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,367&display=swap');
+
 * {
+  font-family: 'Josefin Sans', sans-serif;
   outline: none !important;
 }
 html, body { height: 100%; }

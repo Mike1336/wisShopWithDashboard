@@ -5,13 +5,13 @@ import { CatalogContainer } from './containers/catalog/catalog.container';
 
 const routes: Routes = [
   {
-    path: ':category',
+    path: ':category/:page',
     component: CatalogContainer,
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'phones',
+    redirectTo: 'phones/1',
   },
 ];
 

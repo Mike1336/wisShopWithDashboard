@@ -2,7 +2,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col d-flex align-items-center">
-        <button mat-icon-button class="example-icon" (click)="emitBurgerClick()">
+        <button
+          mat-icon-button
+          class="example-icon"
+          (click)="emitBurgerClick()"
+        >
           <mat-icon>menu</mat-icon>
         </button>
       </div>
@@ -11,7 +15,12 @@
       </div>
       <div class="col d-flex justify-content-end align-items-center">
         <button mat-icon-button [routerLink]="['cart']" class="example-icon">
-          <mat-icon *ngIf="cartLength; else simpleCartIcon" [matBadge]="cartLength" matBadgeColor="warn">shopping_cart</mat-icon>
+          <mat-icon
+            *ngIf="cartLength; else simpleCartIcon"
+            [matBadge]="cartLength"
+            matBadgeColor="warn"
+            >shopping_cart</mat-icon
+          >
           <ng-template #simpleCartIcon>
             <mat-icon>shopping_cart</mat-icon>
           </ng-template>
@@ -23,26 +32,17 @@
 </mat-toolbar>
 
 <ng-template #user>
-  <ng-container *ngIf="userRole === 'admin'; else isNotAdmin">
-    <button mat-button [matMenuTriggerFor]="adminMenu">Admin</button>
-    <mat-menu #adminMenu="matMenu" xPosition="before">
-      <button mat-menu-item routerLink="/admin/dashboard">Dashboard</button>
+  <ng-container *ngIf="userRole === 'user'; else guest">
+    <button mat-button [matMenuTriggerFor]="userMenu">Username</button>
+    <mat-menu #userMenu="matMenu" xPosition="before">
+      <button mat-menu-item routerLink="/">Profile</button>
       <button mat-menu-item (click)="emitLogoutClick()">Logout</button>
     </mat-menu>
   </ng-container>
-  <ng-template #isNotAdmin>
-    <ng-container *ngIf="userRole === 'user'; else guest">
-      <button mat-button [matMenuTriggerFor]="userMenu">Username</button>
-      <mat-menu #userMenu="matMenu" xPosition="before">
-        <button mat-menu-item routerLink="/">Profile</button>
-        <button mat-menu-item (click)="emitLogoutClick()">Logout</button>
-      </mat-menu>
-    </ng-container>
-    <ng-template #guest>
-      <button mat-button [matMenuTriggerFor]="guestMenu">Guest</button>
-      <mat-menu #guestMenu="matMenu" xPosition="before">
-        <button mat-menu-item routerLink="/admin/login">Login</button>
-      </mat-menu>
-    </ng-template>
+  <ng-template #guest>
+    <button mat-button [matMenuTriggerFor]="guestMenu">Guest</button>
+    <mat-menu #guestMenu="matMenu" xPosition="before">
+      <button mat-menu-item routerLink="/admin/login">Login</button>
+    </mat-menu>
   </ng-template>
 </ng-template>

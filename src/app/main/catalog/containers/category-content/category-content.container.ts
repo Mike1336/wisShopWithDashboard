@@ -34,8 +34,10 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
   @Input()
   public category = '';
 
+  @Input()
+  public pageNumber = 1;
+
   public records = 0;
-  public currentPage = 1;
   public pageSize = 5;
 
   public data: IProductDataFormat[] = [];
@@ -88,7 +90,7 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
 
   public getData(category: string): void {
     const params = {
-      page: this.currentPage,
+      page: this.pageNumber,
       pageSize: this.pageSize,
     };
 
@@ -96,8 +98,10 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
     this._dataService.getDataOfCategory(category, params);
   }
 
-  public onChangePage(): void {
+  public onChangePage(page: number): void {
     this._dataService.startLoading();
+    this.pageNumber = page;
+    this._changeUrl();
     this.getData(this.category);
   }
 
@@ -127,6 +131,10 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
     this._dataService.startLoading();
     this._searchService.resetQuery();
     this.getData(this.category);
+  }
+
+  private _changeUrl(): void {
+    this._router.navigate([`/catalog/${this.category}/${this.pageNumber}`]);
   }
 
   private _listenData(): void {

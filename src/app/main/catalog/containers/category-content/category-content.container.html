@@ -25,17 +25,14 @@
       </div>
     </ng-container>
   </div>
-  <!-- <div class="row">
+  <div class="row mt-5 mb-2">
     <div class="col d-flex justify-content-center">
-      <ngb-pagination
+      <app-paginator
         [collectionSize]="records"
-        [(page)]="currentPage"
+        [page]="pageNumber"
         [pageSize]="pageSize"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="onChangePage()"
-      ></ngb-pagination>
+        (pageChange)="onChangePage($event)"
+      ></app-paginator>
     </div>
-  </div> -->
+  </div>
 </div>

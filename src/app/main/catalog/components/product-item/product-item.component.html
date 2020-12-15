@@ -1,16 +1,39 @@
 <mat-card class="product-card mt-5">
-
-  <img class="rounded mx-auto d-block" (click)="emitClickToContent()" mat-card-image [src]="item.mainImage" alt="Image of gadget">
+  <img
+    class="rounded mx-auto d-block"
+    (click)="emitClickToContent()"
+    mat-card-image
+    [src]="item.mainImage"
+    alt="Image of gadget"
+  />
   <mat-card-content (click)="emitClickToContent()">
-    <mat-card-title class="text-center" (click)="emitClickToContent()">{{item.name}}</mat-card-title>
-    <mat-card-subtitle class="text-center" (click)="emitClickToContent()"><strong>{{item.price}} ₽</strong></mat-card-subtitle>
+    <mat-card-title class="text-center" (click)="emitClickToContent()">{{
+      item.name
+    }}</mat-card-title>
+    <mat-card-subtitle class="text-center" (click)="emitClickToContent()"
+      ><strong>{{ item.price }} ₽</strong></mat-card-subtitle
+    >
   </mat-card-content>
   <mat-card-actions class="d-flex justify-content-center">
-    <button mat-stroked-button color="warn" *ngIf="isInCart; else isNotInCart" (click)="emitClickToCart()">DELETE FROM CART</button>
+    <button
+      mat-stroked-button
+      color="warn"
+      *ngIf="isInCart; else isNotInCart"
+      (click)="emitClickToCart()"
+    >
+      DELETE FROM CART<mat-icon>remove_shopping_cart</mat-icon>
+    </button>
     <ng-template #isNotInCart>
-      <button mat-button (click)="emitClickToCart()">ADD TO CART</button>
+      <button mat-button (click)="emitClickToCart()">
+        ADD TO CART<mat-icon>add_shopping_cart</mat-icon>
+      </button>
     </ng-template>
-    <button mat-stroked-button color="warn" *ngIf="isInWishlist; else isNotInWishlist" (click)="emitClickToWish()">
+    <button
+      mat-stroked-button
+      color="warn"
+      *ngIf="isInWishlist; else isNotInWishlist"
+      (click)="emitClickToWish()"
+    >
       UNWISH
       <mat-icon>favorite</mat-icon>
     </button>

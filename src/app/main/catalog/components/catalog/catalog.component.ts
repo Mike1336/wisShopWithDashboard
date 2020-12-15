@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 
-import { pluck, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { DataService } from '../../../services/data.service';
@@ -15,6 +15,8 @@ import { DataService } from '../../../services/data.service';
 export class CatalogComponent implements OnInit, OnDestroy {
 
   public currentCategory = '';
+
+  public currentPageOfCategory = 1;
 
   private _destroy$ = new ReplaySubject<void>(1);
 
@@ -40,13 +42,13 @@ export class CatalogComponent implements OnInit, OnDestroy {
   private _getCategoryFromParams(): void {
     this._route.params
       .pipe(
-        pluck('category'),
         takeUntil(this._destroy$),
       )
       .subscribe(
-        (categoryFromUrl: string) => {
+        (params) => {
           this._dataService.startLoading();
-          this.currentCategory = categoryFromUrl;
+          this.currentCategory = params.category;
+          this.currentPageOfCategory = +params.page;
           this._cdRef.markForCheck();
         },
       );

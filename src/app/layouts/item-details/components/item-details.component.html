@@ -1,26 +1,48 @@
-<div id="modalHeader">
-    <h1 mat-dialog-title>Phone details </h1>
+<div class="d-flex justify-content-between">
+  <h1 mat-dialog-title>Phone details</h1>
 </div>
 <div mat-dialog-content>
-    <div id="topContent">
-        <img [src]="item.mainImage">
-        <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-        </p>
-    </div>
-    <h2><strong>{{item.name}}</strong></h2>
-    <h2>{{item.price}} ₽</h2>
+  <div class="d-flex">
+    <img [src]="item.mainImage" />
+    <p class="ml-5">
+      The Shiba Inu is the smallest of the six original and distinct spitz
+      breeds of dog from Japan. A small, agile dog that copes very well with
+      mountainous terrain, the Shiba Inu was originally bred for hunting.
+    </p>
+  </div>
+  <h3 class="text-center">
+    <strong>{{ item.name }}</strong>
+  </h3>
+  <h5 class="text-center">{{ item.price }} ₽</h5>
 </div>
-<div id="modalBottom" mat-dialog-actions>
-<button mat-stroked-button *ngIf="!checkCartExisting(item); else noCart" (click)="checkInCart(item)">ADD TO CART</button>
-<ng-template #noCart>
-    <button mat-stroked-button color="warn" (click)="checkInCart(item)">IN YOUR CART</button>
-</ng-template>
+<div class="d-flex justify-content-center flex-wrap" mat-dialog-actions>
+  <button
+    mat-stroked-button
+    *ngIf="!checkCartExisting(item); else noCart"
+    (click)="checkInCart(item)"
+  >
+    ADD TO CART 
+    <mat-icon>add_shopping_cart</mat-icon>
+  </button>
+  <ng-template #noCart>
+    <button mat-stroked-button color="warn" (click)="checkInCart(item)">
+      DELETE FROM CART 
+      <mat-icon>remove_shopping_cart</mat-icon>
+    </button>
+  </ng-template>
 
-<button mat-stroked-button *ngIf="!checkWishlistExisting(item); else noFav" (click)="checkInWishlist(item)">SAVE</button>
-<ng-template #noFav>
-    <button mat-stroked-button color="warn" (click)="checkInWishlist(item)">SAVED</button>
-</ng-template>
+  <button
+    mat-stroked-button
+    *ngIf="!checkWishlistExisting(item); else noFav"
+    (click)="checkInWishlist(item)"
+  >
+    WISH
+    <mat-icon>favorite_border</mat-icon>
+  </button>
+  <ng-template #noFav>
+    <button mat-stroked-button color="warn" (click)="checkInWishlist(item)">
+      UNWISH
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </ng-template>
 </div>

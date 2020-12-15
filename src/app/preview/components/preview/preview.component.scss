@@ -1,4 +1,4 @@
-#myVideo {
+#video {
     position: fixed;
     right: 0;
     bottom: 0;
@@ -9,6 +9,10 @@
   /* Add some content at the bottom of the video/page */
   .content {
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
     bottom: 0;
     background: rgba(0, 0, 0, 0.705);
     color: #f1f1f1;
@@ -16,3 +20,10 @@
     height: 100%;
     padding: 20px;
   }
+
+
+@media (min-height: 480px) {
+  .titles, .button {
+    margin-bottom: 150px;
+  }
+}
