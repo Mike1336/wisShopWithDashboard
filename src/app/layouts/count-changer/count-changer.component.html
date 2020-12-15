@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center align-items-center">
+  <button
+    (click)="updateValue(value - 1)"
+    mat-mini-fab
+    color="primary"
+    aria-label="product quantity decreased button"
+>
+  <mat-icon>remove</mat-icon>
+</button>
+<button mat-stroked-button disabled class="mr-2 ml-2 text-body">{{ value }}</button>
+<button
+  (click)="updateValue(value + 1)"
+  mat-mini-fab
+  color="primary"
+  aria-label="product quantity increased button"
+>
+  <mat-icon>add</mat-icon>
+</button>
+</div>

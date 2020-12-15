@@ -8,7 +8,6 @@ import { takeUntil } from 'rxjs/operators';
 
 import { CartService } from '../../services/cart.service';
 import { DeleteConfirmingComponent } from '../delete-confirming/delete-confirming.component';
-
 import { Wishlist } from '../../../wishlist/classes/wishlist';
 import { WishlistService } from '../../../wishlist/services/wishlist.service';
 import { IProductDataFormat, ICartItem } from '../../../../core/interfaces/data-formats';
@@ -43,6 +42,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this._listenCartChanges();
+    this._listenWishlistChanges();
   }
 
   public ngOnDestroy(): void {
@@ -56,12 +56,16 @@ export class CartComponent implements OnInit, OnDestroy {
 
       return;
     }
+
+    item.quantity = 1;
+    this._cdRef.markForCheck();
+
     this.openDeleteConfirming(item);
   }
 
   public deleteItem(item: IProductDataFormat): void {
     this.cart.updateList(item);
-    this._snackBar.open(`${name} was deleted from your cart`, 'OK', {
+    this._snackBar.open(`${item.name} was deleted from your cart`, 'OK', {
       duration: 2000,
     });
   }
@@ -96,14 +100,13 @@ export class CartComponent implements OnInit, OnDestroy {
     });
     confirmModal.afterClosed()
       .pipe(takeUntil(this._destroy$))
-      .subscribe((result) => { // получение данных после закрытия
-        if (!result) {
-          item.quantity = 1;
-
-          return;
-        }
-        this.deleteItem(item);
-      });
+      .subscribe(
+        (result) => {
+          if (!result) {
+            return;
+          }
+          this.deleteItem(item);
+        });
   }
 
   public openItemDetails({ id, name, brand, price, mainImage, images }: IProductDataFormat): void {
@@ -122,6 +125,17 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private _listenCartChanges(): void {
     this.cart.change$
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(
+        () => {
+          this._cdRef.markForCheck();
+        },
+      );
+  }
+  private _listenWishlistChanges(): void {
+    this.wishlist.change$
       .pipe(
         takeUntil(this._destroy$),
       )

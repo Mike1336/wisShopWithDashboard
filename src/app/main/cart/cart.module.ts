@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { ItemDetailsModule } from '../../layouts/item-details/item-details.module';
 
+import { CountChangerModule } from './../../layouts/count-changer/count-changer.module';
 import { DeleteConfirmingComponent } from './components/delete-confirming/delete-confirming.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CartRoutingModule } from './cart-routing.module';
@@ -37,6 +38,7 @@ import { CartRoutingModule } from './cart-routing.module';
     MatInputModule,
     MatDialogModule,
     // Own
+    CountChangerModule,
     ItemDetailsModule,
     CartRoutingModule,
   ],
