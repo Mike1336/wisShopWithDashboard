@@ -1,13 +1,15 @@
 <nav>
   <ul class="pagination">
-    <li class="page-item">
-      <ng-container *ngIf="page === 1; else withLink">
-        <a class="page-link disabled">Previous</a>
+    <ng-container *ngIf="page === 1; else withLink">
+      <li class="page-item disabled">
+        <a class="page-link">Previous</a>
+      </li>
       </ng-container>
       <ng-template #withLink>
-        <a class="page-link" (click)="emitPageChange(page - 1)">Previous</a>
+        <li class="page-item">
+          <a class="page-link" (click)="emitPageChange(page - 1)">Previous</a>
+        </li>
       </ng-template>
-    </li>
 
     <ng-container *ngFor="let pageNumber of pages">
       <ng-container *ngIf="page === pageNumber; else inactive">
@@ -25,13 +27,15 @@
           </li>
         </ng-template>
     </ng-container>
-    <li class="page-item">
-      <ng-container *ngIf="page < pages.length; else withoutLink">
-        <a class="page-link" (click)="emitPageChange(page + 1)">Next</a>
+    <ng-container *ngIf="page < pages.length; else withoutLink">
+        <li class="page-item">
+          <a class="page-link" (click)="emitPageChange(page + 1)">Next</a>
+        </li>
       </ng-container>
       <ng-template #withoutLink>
-        <a class="page-link disabled">Next</a>
+        <li class="page-item disabled">
+          <a class="page-link">Next</a>
+        </li>
       </ng-template>
-    </li>
   </ul>
 </nav>

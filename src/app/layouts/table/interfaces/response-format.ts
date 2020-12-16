@@ -1,16 +1,9 @@
 import { Observable } from 'rxjs';
 
-import { IProductDataFormat } from './../../../core/interfaces/data-formats';
-import { IPhoneData } from './phone-data';
-
-export interface IResponseFormat {
-  data: IPhoneData[];
-  paging: {
-    records: number;
-    limit: number;
-    offset: number;
-  };
-}
+import {
+  IProductDataFormat,
+  IProductResponceFormat,
+} from './../../../core/interfaces/data-formats';
 
 export interface IResponsePaging {
   records: number;
@@ -28,7 +21,7 @@ export interface IQueryParams {
 }
 
 export interface IConfigFormat {
-  fetch: (parameters: IQueryParams) => Observable<IResponseFormat>;
+  fetch: (parameters: IQueryParams) => Observable<IProductResponceFormat>;
   sort?: IConfigTableSort;
   pagination?: ConfigTablePagination;
   actions?: IConfigTableAction[] | undefined;

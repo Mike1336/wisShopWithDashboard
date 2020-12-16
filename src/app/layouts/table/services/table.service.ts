@@ -8,12 +8,12 @@ import { IPhoneData } from '../interfaces/phone-data';
 import {
    ConfigTablePagination,
    IConfigFormat,
-   IResponseFormat,
    IQueryParams,
    IConfigTableSort,
   } from '../interfaces/response-format';
 import { MTableColumnDirective } from '../directives/m-table-column/m-table-column.directive';
 
+import { IProductResponceFormat } from './../../../core/interfaces/data-formats';
 import { SortTableService } from './sort-table.service';
 
 @Injectable()
@@ -149,7 +149,7 @@ export class TableService implements OnDestroy {
         ),
         takeUntil(this._destroy$),
       )
-      .subscribe((response: IResponseFormat) => {
+      .subscribe((response: IProductResponceFormat) => {
         this._dataOfFetch$.next(response.data);
         if (this.paginator) {
           this.paginator.updatePagInfo(response.paging);
@@ -162,7 +162,7 @@ export class TableService implements OnDestroy {
     this._config.fetch({ page: 1, pageSize: 1 })
       .pipe(
         switchMap(
-          (response: IResponseFormat) => {
+          (response: IProductResponceFormat) => {
             const records = response.paging.records;
 
             return this._config.fetch({
@@ -174,7 +174,7 @@ export class TableService implements OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe(
-        (response: IResponseFormat) => {
+        (response: IProductResponceFormat) => {
           this._dataOfFetch$.next(response.data);
         },
       );

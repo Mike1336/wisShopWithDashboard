@@ -52,12 +52,6 @@ export class DataService {
     this._http.get(`${this._apiUrl}${this._category}`)
       .subscribe({
         next: (data: any) => {
-          if (!('length' in data)) {
-            console.error('Data is not array');
-            this._data$.error('Data is not array');
-
-            return;
-          }
           this._data = data.filter((el: IProductDataFormat) => el.name.indexOf(value) !== -1);
 
           this._data$.next(this._getDataInCorrectFormat());
@@ -78,8 +72,9 @@ export class DataService {
     )
       .subscribe({
         next: (data: any) => {
-          if (!data.length) {
-            console.error('Data is not array');
+          console.log(data)
+          if (!data || !data.length) {
+            console.error('Empty data');
 
             return;
           }

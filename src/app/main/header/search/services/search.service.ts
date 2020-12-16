@@ -37,9 +37,9 @@ export class SearchService {
   }
 
   public resetQuery(): void {
-    this._isEnable = false;
     this._query$.next('');
     this._reset$.next();
+    this._isEnable = false;
   }
 
 }

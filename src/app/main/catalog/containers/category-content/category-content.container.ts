@@ -21,7 +21,7 @@ import { WishlistService } from '../../../wishlist/services/wishlist.service';
 import { Wishlist } from '../../../wishlist/classes/wishlist';
 import { Cart } from '../../../cart/classes/cart';
 import { CartService } from '../../../cart/services/cart.service';
-import { IProductDataFormat } from '../../../../core/interfaces/data-formats';
+import { IProductDataFormat, IProductResponceFormat } from '../../../../core/interfaces/data-formats';
 
 @Component({
   selector: 'category-content',
@@ -80,7 +80,7 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnChanges(): void {
-    this.getData(this.category);
+    this.getData();
   }
 
   public ngOnDestroy(): void {
@@ -88,21 +88,20 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
     this._destroy$.complete();
   }
 
-  public getData(category: string): void {
+  public getData(): void {
     const params = {
       page: this.pageNumber,
       pageSize: this.pageSize,
     };
 
     this._dataService.startLoading();
-    this._dataService.getDataOfCategory(category, params);
+    this._dataService.getDataOfCategory(this.category, params);
   }
 
   public onChangePage(page: number): void {
-    this._dataService.startLoading();
     this.pageNumber = page;
     this._changeUrl();
-    this.getData(this.category);
+    this.getData();
   }
 
   public openItemDetails({ id, name, brand, price, mainImage, images }: IProductDataFormat): void {
@@ -128,9 +127,12 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
   }
 
   public cancelSearch(): void {
-    this._dataService.startLoading();
     this._searchService.resetQuery();
-    this.getData(this.category);
+    this.getData();
+  }
+
+  public refreshData(): void {
+    this.getData();
   }
 
   private _changeUrl(): void {
@@ -143,9 +145,14 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe({
-        next: (response) => {
-          this.data = response.data;
-          this.records = response.paging.records;
+        next: (response: IProductResponceFormat) => {
+          const { data, paging: { records } } = response;
+
+          if (data.length === 0 && !this.searchIsEnable) {
+            return;
+          }
+          this.data = data;
+          this.records = records;
           this._cdRef.markForCheck();
           this._dataService.stopLoading();
         },
@@ -190,7 +197,9 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
         (searchValue) => {
           if (!searchValue) {
             this.searchQuery = '';
-            this.getData(this.category);
+            this.getData();
+
+            return;
           }
           this.searchQuery = searchValue;
           this._cdRef.markForCheck();
