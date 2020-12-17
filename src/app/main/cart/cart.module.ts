@@ -17,12 +17,16 @@ import { CountChangerModule } from './../../layouts/count-changer/count-changer.
 import { DeleteConfirmingComponent } from './components/delete-confirming/delete-confirming.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CartRoutingModule } from './cart-routing.module';
+import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { WishlistIconComponent } from './components/wishlist-icon/wishlist-icon.component';
 
 
 @NgModule({
   declarations: [
     CartComponent,
     DeleteConfirmingComponent,
+    CartItemComponent,
+    WishlistIconComponent,
   ],
   imports: [
     // Angular

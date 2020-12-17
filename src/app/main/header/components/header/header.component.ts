@@ -16,6 +16,12 @@ export class HeaderComponent {
   @Input()
   public cartLength!: number;
 
+  @Input()
+  public wishlisthLength!: number;
+
+  @Input()
+  public searchIsShow!: boolean;
+
   @Output()
   public logout = new EventEmitter();
 

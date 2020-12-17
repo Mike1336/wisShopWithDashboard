@@ -1,3 +1,4 @@
+import { NavigationEnd, Router } from '@angular/router';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,7 +6,7 @@ import {
   OnInit, ChangeDetectorRef,
 } from '@angular/core';
 
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
 
 import { AuthService } from '../../../../auth/services/auth.service';
@@ -13,6 +14,9 @@ import { NavbarService } from '../../../navbar/services/navbar.service';
 import { CartService } from '../../../cart/services/cart.service';
 import { Cart } from '../../../cart/classes/cart';
 import { userRole } from '../../../../auth/interfaces/user';
+
+import { Wishlist } from './../../../wishlist/classes/wishlist';
+import { WishlistService } from './../../../wishlist/services/wishlist.service';
 
 @Component({
   selector: 'app-header',
@@ -22,13 +26,9 @@ import { userRole } from '../../../../auth/interfaces/user';
 })
 export class HeaderContainer implements OnInit, OnDestroy {
 
-  public get cart(): Cart {
-    return this._cartService.cart;
-  }
-
   public userRole!: userRole;
 
-  public currentRoute!: string;
+  public searchIsShow!: boolean;
 
   private _destroy$ = new ReplaySubject<void>(1);
 
@@ -36,12 +36,24 @@ export class HeaderContainer implements OnInit, OnDestroy {
     private _auth: AuthService,
     private _navbarService: NavbarService,
     private _cartService: CartService,
+    private _wishlistService: WishlistService,
+    private _router: Router,
     private _cdRef: ChangeDetectorRef,
     ) { }
 
+  public get cart(): Cart {
+    return this._cartService.cart;
+  }
+
+  public get wishlist(): Wishlist {
+    return this._wishlistService.wishlist;
+  }
+
   public ngOnInit(): void {
+    this._listenUrl();
     this._listenRole();
     this._listenCartChanges();
+    this._listenWishlistChanges();
   }
 
   public ngOnDestroy(): void {
@@ -69,6 +81,18 @@ export class HeaderContainer implements OnInit, OnDestroy {
       );
   }
 
+  private _listenWishlistChanges(): void {
+    this.wishlist.change$
+      .pipe(
+        takeUntil(this._destroy$),
+      )
+      .subscribe(
+        () => {
+          this._cdRef.markForCheck();
+        },
+      );
+  }
+
   private _listenRole(): void {
     this._auth.userRole$
       .pipe(
@@ -79,6 +103,31 @@ export class HeaderContainer implements OnInit, OnDestroy {
           this.userRole = role;
         },
       );
+  }
+
+  private _listenUrl(): void {
+    this._router.events
+      .pipe(
+      filter((event) => event instanceof NavigationEnd),
+      takeUntil(this._destroy$),
+      )
+      .subscribe(
+        (event: any) => {
+          if (!event || !event.url) {
+            console.error('Router navigation error');
+
+            return;
+          }
+
+          if (event.url === '/cart' || event.url === '/wishlist') {
+            this.searchIsShow = false;
+            this._cdRef.markForCheck();
+
+            return;
+          }
+          this.searchIsShow = true;
+          this._cdRef.markForCheck();
+        });
   }
 
 }

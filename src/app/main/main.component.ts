@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   templateUrl: './main.component.html',
@@ -6,6 +6,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 })
 export class MainComponent {
 
-  constructor() { }
-
+  constructor() { 
+  }
+  
 }

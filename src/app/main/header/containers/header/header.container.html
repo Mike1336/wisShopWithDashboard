@@ -1,6 +1,8 @@
 <header-component 
     [userRole]="userRole" 
     [cartLength]="cart.list.length"
+    [wishlisthLength]="wishlist.list.length"
+    [searchIsShow]="searchIsShow"
     (logout)="logout()"
     (clickToNavbar)="changeNavbarStatus()"
 ></header-component>

@@ -10,18 +10,28 @@
           <mat-icon>menu</mat-icon>
         </button>
       </div>
-      <div class="col d-flex align-items-center justify-content-center">
+      <div *ngIf="searchIsShow" class="col d-flex align-items-center justify-content-center">
         <app-search></app-search>
       </div>
       <div class="col d-flex justify-content-end align-items-center">
+        <button mat-icon-button [routerLink]="['wishlist']" class="example-icon">
+          <mat-icon
+            *ngIf="wishlisthLength; else emptyWishBadge"
+            [matBadge]="wishlisthLength"
+            matBadgeColor="warn"
+          >favorite</mat-icon>
+          <ng-template #emptyWishBadge>
+            <mat-icon>favorite</mat-icon>
+          </ng-template>
+        </button>
         <button mat-icon-button [routerLink]="['cart']" class="example-icon">
           <mat-icon
-            *ngIf="cartLength; else simpleCartIcon"
+            *ngIf="cartLength; else emptyCartBadge"
             [matBadge]="cartLength"
             matBadgeColor="warn"
             >shopping_cart</mat-icon
           >
-          <ng-template #simpleCartIcon>
+          <ng-template #emptyCartBadge>
             <mat-icon>shopping_cart</mat-icon>
           </ng-template>
         </button>

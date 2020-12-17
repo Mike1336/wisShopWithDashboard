@@ -1,9 +1,4 @@
-<div class="container-fluid" *ngIf="cart.list.length; else emptyCart">
-  <div class="row">
-    <div class="col-8 products">
-      <div class="row justify-content-center">
-        <div class="col-9 mt-2 mb-2" *ngFor="let item of cart.list">
-          <mat-card>
+          <!-- <mat-card>
             <mat-card-header class="justify-content-between">
               <button
                       mat-icon-button
@@ -57,48 +52,4 @@
                 </h5>
               </div>
             </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-      <div class="container products">
-      </div>
-    </div>
-    <div class="col-4 shortOrderInfo">
-      <mat-card>
-        <mat-card-title class="text-center"> Your order: </mat-card-title>
-        <mat-card-content>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let item of cart.list">
-              {{ item.name }} (x{{ item.quantity }}) -----
-              {{ item.price * item.quantity }} ₽
-            </li>
-          </ul>
-        </mat-card-content>
-        <mat-card-footer
-          class="border-top p-3 d-flex flex-wrap justify-content-center"
-        >
-          <h5 class="text-center">
-            Total order price is {{ cart.totalPrice }} ₽
-          </h5>
-          <button type="button" class="btn btn-success w-75">Checkout</button>
-        </mat-card-footer>
-      </mat-card>
-    </div>
-  </div>
-</div>
-<ng-template #emptyCart>
-  <div class="container h-100 d-flex align-items-center justify-content-center">
-    <div class="row">
-      <div
-        class="col d-flex flex-wrap justify-content-center align-items-center"
-      >
-        <h1 class="w-100 text-center">Cart is empty</h1>
-        <div class="button-container mt-3">
-          <button [routerLink]="['/', 'catalog']" mat-fab color="primary">
-            <mat-icon>add</mat-icon>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
+          </mat-card> -->
