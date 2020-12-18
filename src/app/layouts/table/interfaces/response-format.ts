@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 
 import {
   IProductDataFormat,
-  IProductResponceFormat,
+  IProductResponseFormat,
 } from './../../../core/interfaces/data-formats';
 
 export interface IResponsePaging {
@@ -21,7 +21,7 @@ export interface IQueryParams {
 }
 
 export interface IConfigFormat {
-  fetch: (parameters: IQueryParams) => Observable<IProductResponceFormat>;
+  fetch: (parameters: IQueryParams) => Observable<IProductResponseFormat>;
   sort?: IConfigTableSort;
   pagination?: ConfigTablePagination;
   actions?: IConfigTableAction[] | undefined;

@@ -6,9 +6,7 @@ import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 import { IQueryParams } from '../../layouts/table/interfaces/response-format';
 import { environment } from '../../../environments/environment';
-
-import { IProductResponceFormat, IProductDataFormat } from './../../core/interfaces/data-formats';
-
+import { IProductResponseFormat, IProductDataFormat } from '../interfaces/data-formats';
 
 @Injectable()
 
@@ -20,13 +18,13 @@ export class DataService {
 
   private _category = '';
 
-  private _data$ = new Subject<IProductResponceFormat>();
+  private _data$ = new Subject<IProductResponseFormat>();
 
   private _loadingStatus$ = new BehaviorSubject<boolean>(false);
 
   constructor(private _http: HttpClient) {}
 
-  public get data$(): Observable<IProductResponceFormat> {
+  public get data$(): Observable<IProductResponseFormat> {
     return this._data$.asObservable();
   }
 
@@ -89,7 +87,21 @@ export class DataService {
       });
   }
 
-  private _getDataInCorrectFormat(params?: IQueryParams): IProductResponceFormat {
+  public updateItem(category: string, item: IProductDataFormat): void {
+    this._http.post(`${this._apiUrl}${category}`, item)
+      .pipe(
+      delay(1500),
+    )
+      .subscribe({
+        error: (error) => {
+          console.error(error);
+
+          this._data$.error(error);
+        },
+      });
+  }
+
+  private _getDataInCorrectFormat(params?: IQueryParams): IProductResponseFormat {
     if (!params) {
       return {
         data: this._data,

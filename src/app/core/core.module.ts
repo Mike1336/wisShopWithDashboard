@@ -5,8 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { UnauthGuard } from '../auth/guards/unauth.guard';
 
-
-
 @NgModule({
   declarations: [],
   imports: [

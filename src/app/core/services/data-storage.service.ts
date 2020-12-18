@@ -4,6 +4,9 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 import { ICategoryFormat, IProductDataFormat } from '../interfaces/data-formats';
 
+import { ICartItemFormat } from './../interfaces/data-formats';
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -41,6 +44,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 2,
@@ -56,6 +61,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 3,
@@ -71,6 +78,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 4,
@@ -86,6 +95,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 5,
@@ -101,6 +112,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 6,
@@ -116,6 +129,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 7,
@@ -131,6 +146,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 8,
@@ -146,6 +163,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 9,
@@ -161,6 +180,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 10,
@@ -176,6 +197,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 11,
@@ -191,6 +214,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 12,
@@ -206,6 +231,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
     ];
 
@@ -224,6 +251,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 14,
@@ -239,6 +268,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 15,
@@ -254,6 +285,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
     ];
 
@@ -272,6 +305,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 17,
@@ -287,6 +322,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
       {
         id: 18,
@@ -302,6 +339,8 @@ export class DataStorageService implements InMemoryDbService {
           '',
           '',
         ],
+        isInCart: false,
+        isInWishlist: false,
       },
     ];
 
@@ -311,7 +350,12 @@ export class DataStorageService implements InMemoryDbService {
       ...laptops,
     ];
 
-    return { categories, all, phones, tablets, laptops };
+    const cart: ICartItemFormat[] = [];
+
+    const wishlist: IProductDataFormat[] = [];
+
+
+    return { categories, all, phones, tablets, laptops, cart, wishlist };
   }
 
 }

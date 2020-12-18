@@ -6,6 +6,8 @@ export interface IProductDataFormat {
   category: ICategoryFormat;
   mainImage: string;
   images: string[];
+  isInCart: boolean;
+  isInWishlist: boolean;
 }
 
 export interface ICategoryFormat {
@@ -13,7 +15,7 @@ export interface ICategoryFormat {
   name: string;
 }
 
-export interface IProductResponceFormat {
+export interface IProductResponseFormat {
   data: IProductDataFormat[];
   paging: {
     records: number;
@@ -22,6 +24,12 @@ export interface IProductResponceFormat {
   };
 }
 
-export interface ICartItem extends IProductDataFormat {
+export interface ICartItemFormat extends IProductDataFormat {
   quantity: number;
+  totalPrice: number;
+}
+
+export interface ICartResponseFormat {
+  items: ICartItemFormat[];
+  totalPrice: number;
 }

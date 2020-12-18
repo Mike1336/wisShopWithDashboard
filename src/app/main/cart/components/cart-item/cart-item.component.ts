@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ICartItem } from './../../../../core/interfaces/data-formats';
+import { ICartItemFormat } from './../../../../core/interfaces/data-formats';
 
 @Component({
   selector: 'cart-item',
@@ -10,7 +10,7 @@ import { ICartItem } from './../../../../core/interfaces/data-formats';
 export class CartItemComponent implements OnInit {
 
   @Input()
-  public item!: ICartItem;
+  public item!: ICartItemFormat;
 
   constructor() { }
 

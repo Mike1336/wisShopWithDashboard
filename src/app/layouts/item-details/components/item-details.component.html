@@ -16,33 +16,45 @@
   <h5 class="text-center">{{ item.price }} ₽</h5>
 </div>
 <div class="d-flex justify-content-center flex-wrap" mat-dialog-actions>
-  <button
-    mat-stroked-button
-    *ngIf="!checkCartExisting(item); else noCart"
-    (click)="checkInCart(item)"
-  >
-    ADD TO CART 
-    <mat-icon>add_shopping_cart</mat-icon>
-  </button>
-  <ng-template #noCart>
-    <button mat-stroked-button color="warn" (click)="checkInCart(item)">
-      DELETE FROM CART 
+  <ng-container *ngIf="loading$ | async; else statusButton"> 
+    <button
+      mat-stroked-button
+    >
+    <mat-spinner></mat-spinner>
+    </button>
+  </ng-container>
+  <ng-template #statusButton>
+    <button
+      mat-stroked-button
+      color="warn"
+      *ngIf="item.isInCart; else noCart"
+      (click)="deleteFromCart()"
+    >
+      DELETE FROM CART
       <mat-icon>remove_shopping_cart</mat-icon>
     </button>
+    <ng-template #noCart>
+      <button mat-stroked-button (click)="addToCart()">
+        ADD TO CART
+        <mat-icon>add_shopping_cart</mat-icon>
+      </button>
+    </ng-template>
   </ng-template>
 
   <button
     mat-stroked-button
-    *ngIf="!checkWishlistExisting(item); else noFav"
-    (click)="checkInWishlist(item)"
+    color="warn"
+    *ngIf="item.isInWishlist; else noFav"
+    (click)="deleteFromWishlist()"
   >
-    WISH
-    <mat-icon>favorite_border</mat-icon>
+    UNWISH
+    <mat-icon>favorite</mat-icon>
   </button>
+
   <ng-template #noFav>
-    <button mat-stroked-button color="warn" (click)="checkInWishlist(item)">
-      UNWISH
-      <mat-icon>favorite</mat-icon>
+    <button mat-stroked-button (click)="addToWishlist()">
+      WISH
+      <mat-icon>favorite_border</mat-icon>
     </button>
   </ng-template>
 </div>

@@ -19,6 +19,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { CartRoutingModule } from './cart-routing.module';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { WishlistIconComponent } from './components/wishlist-icon/wishlist-icon.component';
+import { CartContainer } from './containers/cart/cart.container';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { WishlistIconComponent } from './components/wishlist-icon/wishlist-icon.
     DeleteConfirmingComponent,
     CartItemComponent,
     WishlistIconComponent,
+    CartContainer,
   ],
   imports: [
     // Angular

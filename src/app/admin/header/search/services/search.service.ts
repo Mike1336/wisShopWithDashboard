@@ -5,7 +5,7 @@
 
 // import {
 //   IProductDataFormat,
-//   IProductResponceFormat,
+//   IProductResponseFormat,
 // } from './../../../core/interfaces/data-formats';
 // import { DataService } from './../../../catalog/services/data.service';
 
@@ -17,7 +17,7 @@
 //   // public search(bookName: string, category: string): Observable<IProductDataFormat[]> {
 //   //   return this._dataService.getData(bookName)
 //   //     .pipe(
-//   //       map((responce: IProductResponceFormat) => {
+//   //       map((responce: IProductResponseFormat) => {
 //   //         responce.data.length === 0
 //   //         ? this.emptyResult = true
 //   //         : this.emptyResult = false;

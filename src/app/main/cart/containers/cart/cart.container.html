@@ -1,0 +1,16 @@
+<div
+  [ngClass]="{ 'show': loading$ | async }"
+  class="spinner position-fixed h-100 w-100 d-flex justify-content-center align-items-center"
+>
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<cart-component
+    [items]="items"
+    [totalPrice]="totalPrice"
+    (clickOnProduct)="openItemDetails($event)"
+    (deleteItem)="openDeleteConfirming($event)"
+    (increasedItemCount)="updateItem($event)"
+></cart-component>

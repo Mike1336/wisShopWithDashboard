@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { delay } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 
-import { IProductResponceFormat, IProductDataFormat } from '../../core/interfaces/data-formats';
+import { IProductResponseFormat, IProductDataFormat } from '../../core/interfaces/data-formats';
 import { IQueryParams } from '../../layouts/table/interfaces/response-format';
 import { environment } from '../../../environments/environment';
 
@@ -17,11 +17,11 @@ export class DataService {
 
   private _data: IProductDataFormat[] = [];
 
-  private _data$ = new Subject<IProductResponceFormat>();
+  private _data$ = new Subject<IProductResponseFormat>();
 
   constructor(private _http: HttpClient) {}
 
-  public get data$(): Observable<IProductResponceFormat> {
+  public get data$(): Observable<IProductResponseFormat> {
     return this._data$.asObservable();
   }
 
@@ -73,7 +73,7 @@ export class DataService {
       });
   }
 
-  public getData(params: IQueryParams, category?: string): Observable<IProductResponceFormat> {
+  public getData(params: IQueryParams, category?: string): Observable<IProductResponseFormat> {
     if (category) {
       this.getDataOfCategory(category, params);
 
@@ -101,7 +101,7 @@ export class DataService {
     return this.data$;
   }
 
-  private _getDataInCorrectFormat(params?: IQueryParams): IProductResponceFormat {
+  private _getDataInCorrectFormat(params?: IQueryParams): IProductResponseFormat {
     if (!params) {
       return {
         data: this._data,

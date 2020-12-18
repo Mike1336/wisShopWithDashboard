@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 
 import { ItemDetailsModule } from '../../layouts/item-details/item-details.module';
 
+import { CartService } from '../../core/services/cart.service';
 import { CatalogContainer } from './containers/catalog/catalog.container';
 import { CatalogRoutingModule } from './catalog-routing.module';
 import { CategoryContentContainer } from './containers/category-content/category-content.container';

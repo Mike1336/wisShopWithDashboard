@@ -15,13 +15,11 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { SearchService } from '../../../header/search/services/search.service';
-import { DataService } from '../../../services/data.service';
+import { DataService } from '../../../../core/services/data.service';
 import { ItemDetailsComponent } from '../../../../layouts/item-details/components/item-details.component';
-import { WishlistService } from '../../../wishlist/services/wishlist.service';
-import { Wishlist } from '../../../wishlist/classes/wishlist';
-import { Cart } from '../../../cart/classes/cart';
-import { CartService } from '../../../cart/services/cart.service';
-import { IProductDataFormat, IProductResponceFormat } from '../../../../core/interfaces/data-formats';
+import { WishlistService } from '../../../../core/services/wishlist.service';
+import { CartService } from '../../../../core/services/cart.service';
+import { IProductDataFormat, IProductResponseFormat } from '../../../../core/interfaces/data-formats';
 
 @Component({
   selector: 'category-content',
@@ -40,7 +38,7 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
   public records = 0;
   public pageSize = 5;
 
-  public data: IProductDataFormat[] = [];
+  public categoryData: IProductDataFormat[] = [];
 
   public searchQuery = '';
 
@@ -49,7 +47,7 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private _dataService: DataService,
-    private _cardService: CartService,
+    private _cartService: CartService,
     private _wishlistService: WishlistService,
     private _searchService: SearchService,
     private _router: Router,
@@ -60,22 +58,14 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
     return this._dataService.loadingStatus$;
   }
 
-  public get cart(): Cart {
-    return this._cardService.cart;
-  }
-
-  public get wishlist(): Wishlist {
-    return this._wishlistService.wishlist;
-  }
-
   public get searchIsEnable(): boolean {
     return this._searchService.isEnable;
   }
 
   public ngOnInit(): void {
     this._listenData();
-    this._listenCartChanges();
-    this._listenWishlistChanges();
+    this._listenCart();
+    this._listenWishlist();
     this._listenSearchStatus();
   }
 
@@ -118,12 +108,20 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
     });
   }
 
-  public checkInCart(item: IProductDataFormat): void {
-    this.cart.updateList(item);
+  public addToCart(item: IProductDataFormat): void {
+    this._cartService.add(item);
   }
 
-  public checkInWishlist(item: IProductDataFormat): void {
-    this.wishlist.updateList(item);
+  public deleteFromCart(item : IProductDataFormat): void {
+    this._cartService.delete(item);
+  }
+
+  public addToWishlist(item: IProductDataFormat): void {
+    this._wishlistService.add(item);
+  }
+
+  public deleteFromWishlist(item : IProductDataFormat): void {
+    this._wishlistService.delete(item);
   }
 
   public cancelSearch(): void {
@@ -145,13 +143,13 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe({
-        next: (response: IProductResponceFormat) => {
+        next: (response: IProductResponseFormat) => {
           const { data, paging: { records } } = response;
 
           if (data.length === 0 && !this.searchIsEnable) {
             return;
           }
-          this.data = data;
+          this.categoryData = data;
           this.records = records;
           this._cdRef.markForCheck();
           this._dataService.stopLoading();
@@ -164,26 +162,28 @@ export class CategoryContentContainer implements OnInit, OnChanges, OnDestroy {
       });
   }
 
-  private _listenCartChanges(): void {
-    this.cart.change$
+  private _listenCart(): void {
+    this._cartService.data$
       .pipe(
         takeUntil(this._destroy$),
       )
       .subscribe(
         () => {
           this._cdRef.markForCheck();
+          this._cartService.stopLoading();
         },
       );
   }
 
-  private _listenWishlistChanges(): void {
-    this.wishlist.change$
+  private _listenWishlist(): void {
+    this._wishlistService.data$
       .pipe(
         takeUntil(this._destroy$),
       )
       .subscribe(
         () => {
           this._cdRef.markForCheck();
+          this._wishlistService.stopLoading();
         },
       );
   }

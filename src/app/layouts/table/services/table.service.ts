@@ -13,7 +13,7 @@ import {
   } from '../interfaces/response-format';
 import { MTableColumnDirective } from '../directives/m-table-column/m-table-column.directive';
 
-import { IProductResponceFormat } from './../../../core/interfaces/data-formats';
+import { IProductResponseFormat } from './../../../core/interfaces/data-formats';
 import { SortTableService } from './sort-table.service';
 
 @Injectable()
@@ -149,7 +149,7 @@ export class TableService implements OnDestroy {
         ),
         takeUntil(this._destroy$),
       )
-      .subscribe((response: IProductResponceFormat) => {
+      .subscribe((response: IProductResponseFormat) => {
         this._dataOfFetch$.next(response.data);
         if (this.paginator) {
           this.paginator.updatePagInfo(response.paging);
@@ -162,7 +162,7 @@ export class TableService implements OnDestroy {
     this._config.fetch({ page: 1, pageSize: 1 })
       .pipe(
         switchMap(
-          (response: IProductResponceFormat) => {
+          (response: IProductResponseFormat) => {
             const records = response.paging.records;
 
             return this._config.fetch({
@@ -174,7 +174,7 @@ export class TableService implements OnDestroy {
         takeUntil(this._destroy$),
       )
       .subscribe(
-        (response: IProductResponceFormat) => {
+        (response: IProductResponseFormat) => {
           this._dataOfFetch$.next(response.data);
         },
       );

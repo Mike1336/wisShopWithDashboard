@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { ItemDetailsComponent } from './components/item-details.component';
 
@@ -18,6 +19,7 @@ import { ItemDetailsComponent } from './components/item-details.component';
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     ItemDetailsComponent,

@@ -1,77 +1,77 @@
-import { Subject, Observable } from 'rxjs';
+// import { Subject, Observable } from 'rxjs';
 
-import { ICartItem, IProductDataFormat } from '../../../core/interfaces/data-formats';
+// import { IProductDataFormat } from '../../../core/interfaces/data-formats';
 
-export class Cart {
+// export class Cart {
 
-  private _list: ICartItem[] = [];
-  private _totalPrice = 0;
+//   private _list: ICartItem[] = [];
+//   private _totalPrice = 0;
 
-  private _change$ = new Subject<void>();
+//   private _change$ = new Subject<void>();
 
-  constructor() {
-  }
+//   constructor() {
+//   }
 
-  public get list(): ICartItem[] {
-    return this._list;
-  }
+//   public get list(): ICartItem[] {
+//     return this._list;
+//   }
 
-  public get totalPrice(): number {
-    return this._totalPrice;
-  }
+//   public get totalPrice(): number {
+//     return this._totalPrice;
+//   }
 
-  public get change$(): Observable<void> {
-    return this._change$.asObservable();
-  }
+//   public get change$(): Observable<void> {
+//     return this._change$.asObservable();
+//   }
 
-  public isExist(item: IProductDataFormat): boolean {
-    return this.list.some((i: IProductDataFormat) => {
-      return i.id === item.id;
-    });
-  }
+//   public isExist(item: IProductDataFormat): boolean {
+//     return this.list.some((i: IProductDataFormat) => {
+//       return i.id === item.id;
+//     });
+//   }
 
-  public updateList(item: IProductDataFormat): void { // adding or deleting item
-    const itemInList = this.list.find((i: ICartItem) => {
-      return i.id === item.id;
-    });
+//   public updateList(item: IProductDataFormat): void { // adding or deleting item
+//     const itemInList = this.list.find((i: ICartItem) => {
+//       return i.id === item.id;
+//     });
 
-    if (!itemInList) {
-      this._addItem(item);
+//     if (!itemInList) {
+//       this._addItem(item);
 
-      return;
-    }
+//       return;
+//     }
 
-    this._deleteItem(item);
-  }
+//     this._deleteItem(item);
+//   }
 
-  public calculateTotalPrice(): void {
-    this._updateTotalPrice();
-  }
+//   public calculateTotalPrice(): void {
+//     this._updateTotalPrice();
+//   }
 
-  private _addItem(item: IProductDataFormat): void {
-    this._list.push({ ...item, quantity: 1 });
-    this._updateTotalPrice();
-    this._change$.next();
-  }
+//   private _addItem(item: IProductDataFormat): void {
+//     this._list.push({ ...item, quantity: 1 });
+//     this._updateTotalPrice();
+//     this._change$.next();
+//   }
 
-  private _deleteItem(item: IProductDataFormat): void {
-    this._list = this._list
-    .filter((element) => element.id !== item.id);
-    this._updateTotalPrice();
-    this._change$.next();
-  }
+//   private _deleteItem(item: IProductDataFormat): void {
+//     this._list = this._list
+//     .filter((element) => element.id !== item.id);
+//     this._updateTotalPrice();
+//     this._change$.next();
+//   }
 
-  private _updateTotalPrice(): void {
-    if (!this.list.length) {
-      return;
-    }
+//   private _updateTotalPrice(): void {
+//     if (!this.list.length) {
+//       return;
+//     }
 
-    this._totalPrice = this._list
-        .map((item) => item.price * item.quantity)
-            .reduce((prevItem, currItem) => {
-              return prevItem + currItem;
-            },
-          );
-  }
+//     this._totalPrice = this._list
+//         .map((item) => item.price * item.quantity)
+//             .reduce((prevItem, currItem) => {
+//               return prevItem + currItem;
+//             },
+//           );
+//   }
 
-}
+// }

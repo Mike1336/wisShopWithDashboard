@@ -8,8 +8,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { DataStorageService } from '../core/services/data-storage.service';
+import { DataService } from '../core/services/data.service';
+import { CartService } from '../core/services/cart.service';
+import { WishlistService } from '../core/services/wishlist.service';
 
-import { DataService } from './services/data.service';
 import { NavbarModule } from './navbar/navbar.module';
 import { HeaderModule } from './header/header.module';
 import { MainComponent } from './main.component';
@@ -37,6 +39,8 @@ import { ItemDetailsModule } from './../layouts/item-details/item-details.module
   ],
   providers: [
     DataService,
+    CartService,
+    WishlistService,
   ],
 })
 export class MainModule { }

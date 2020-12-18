@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ChangeDetectorRe
 import { takeUntil } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { DataService } from '../../../services/data.service';
+import { DataService } from '../../../../core/services/data.service';
 @Component({
   selector: 'catalog-component',
   templateUrl: './catalog.component.html',

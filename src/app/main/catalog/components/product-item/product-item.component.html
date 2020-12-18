@@ -19,26 +19,26 @@
       mat-stroked-button
       color="warn"
       *ngIf="isInCart; else isNotInCart"
-      (click)="emitClickToCart()"
+      (click)="emitClickToDeleteFromCart()"
     >
       DELETE FROM CART<mat-icon>remove_shopping_cart</mat-icon>
     </button>
     <ng-template #isNotInCart>
-      <button mat-button (click)="emitClickToCart()">
+      <button mat-button (click)="emitClickToAddToCart()">
         ADD TO CART<mat-icon>add_shopping_cart</mat-icon>
       </button>
     </ng-template>
     <button
       mat-stroked-button
       color="warn"
-      *ngIf="isInWishlist; else isNotInWishlist"
-      (click)="emitClickToWish()"
+      *ngIf="item.isInWishlist; else isNotInWishlist"
+      (click)="emitClickToDeleteFromWishlist()"
     >
       UNWISH
       <mat-icon>favorite</mat-icon>
     </button>
     <ng-template #isNotInWishlist>
-      <button mat-button (click)="emitClickToWish()">
+      <button mat-button (click)="emitClickToAddToWishlist()">
         WISH
         <mat-icon>favorite_border</mat-icon>
       </button>

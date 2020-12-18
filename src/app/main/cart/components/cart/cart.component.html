@@ -1,85 +1,84 @@
-<div class="container-fluid" *ngIf="cart.list.length; else emptyCart">
+<div class="container-fluid" *ngIf="items.length; else emptyCart">
   <div class="row">
     <div class="col-8 products">
       <div class="row justify-content-center">
-        <div class="col-9 mt-2 mb-2" *ngFor="let item of cart.list">
+        <div class="col-9 mt-2 mb-2" *ngFor="let item of items">
           <mat-card>
             <mat-card-header class="justify-content-between">
               <button
-                      mat-icon-button
-                      *ngIf="checkItemForFav(item); else notInWishlist"
-                      class="example-icon addCart"
-                      (click)="checkInWishlist(item)"
+                mat-stroked-button
+                color="warn"
+                *ngIf="item.isInWishlist; else isNotInWishlist"
+                (click)="emitClickToDeleteFromWishlist(item)"
               >
-                <mat-icon color="warn">favorite</mat-icon>
+                <mat-icon>favorite</mat-icon>
               </button>
-              <ng-template #notInWishlist>
-                <button
-                        mat-icon-button
-                        class="example-icon addCart"
-                        (click)="checkInWishlist(item)"
-                >
-                  <mat-icon>favorite</mat-icon>
+              <ng-template #isNotInWishlist>
+                <button mat-button (click)="emitClickToAddToWishlist(item)">
+                  <mat-icon>favorite_border</mat-icon>
                 </button>
               </ng-template>
               <button
-                      mat-icon-button
-                      class="example-icon favorite-icon"
-                      (click)="openDeleteConfirming(item)"
+                mat-icon-button
+                class="example-icon favorite-icon"
+                (click)="emitClickToDeleteFromCart(item)"
               >
                 <mat-icon>delete_sweep</mat-icon>
               </button>
             </mat-card-header>
             <mat-card-content class="d-flex justify-content-around">
               <img
-                      class="img-fluid"
-                      [src]="item.mainImage"
-                      (click)="openItemDetails(item)"
+                class="img-fluid"
+                [src]="item.mainImage"
+                (click)="emitClickOnProduct(item)"
               />
               <div
-                      class="d-flex flex-wrap justify-content-center align-items-center"
-                      class="p-3"
+                class="d-flex flex-wrap justify-content-center align-items-center"
+                class="p-3"
               >
-                <h3 class="w-100 text-center" (click)="openItemDetails(item)">
+                <h3
+                  class="w-100 text-center"
+                  (click)="emitClickOnProduct(item)"
+                >
                   {{ item.name }}
                 </h3>
-                <h5 class="w-100 text-center" (click)="openItemDetails(item)">
+                <h5
+                  class="w-100 text-center"
+                  (click)="emitClickOnProduct(item)"
+                >
                   <strong>{{ item.price }} ₽</strong>
                 </h5>
                 <div class="mt-5 mb-5">
                   <count-changer
-                          [(ngModel)]="item.quantity"
-                          (ngModelChange)="checkQuantityOfItem(item)"
+                    [ngModel]="item.quantity"
+                    (ngModelChange)="checkCount(item, $event)"
                   ></count-changer>
                 </div>
                 <h5 class="text-center">
-                  Product total price is {{ item.price * item.quantity }} ₽
+                  Product total price is {{ item.totalPrice }} ₽
                 </h5>
               </div>
             </mat-card-content>
           </mat-card>
         </div>
       </div>
-      <div class="container products">
-      </div>
+      <div class="container products"></div>
     </div>
     <div class="col-4 shortOrderInfo">
       <mat-card>
         <mat-card-title class="text-center"> Your order: </mat-card-title>
         <mat-card-content>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let item of cart.list">
+            <li class="list-group-item" *ngFor="let item of items">
               {{ item.name }} (x{{ item.quantity }}) -----
-              {{ item.price * item.quantity }} ₽
+              {{ item.totalPrice }} ₽
             </li>
           </ul>
         </mat-card-content>
         <mat-card-footer
           class="border-top p-3 d-flex flex-wrap justify-content-center"
         >
-          <h5 class="text-center">
-            Total order price is {{ cart.totalPrice }} ₽
-          </h5>
+          <h5 class="text-center">Total order price is {{ totalPrice }} ₽</h5>
           <button type="button" class="btn btn-success w-75">Checkout</button>
         </mat-card-footer>
       </mat-card>

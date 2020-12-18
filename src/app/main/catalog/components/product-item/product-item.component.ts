@@ -23,10 +23,16 @@ export class ProductItemComponent {
   public clickToContent = new EventEmitter<IProductDataFormat>();
 
   @Output()
-  public clickToCart = new EventEmitter<IProductDataFormat>();
+  public addToCart = new EventEmitter<IProductDataFormat>();
 
   @Output()
-  public clickToWish = new EventEmitter<IProductDataFormat>();
+  public deleteFromCart = new EventEmitter<IProductDataFormat>();
+
+  @Output()
+  public addToWishlist = new EventEmitter<IProductDataFormat>();
+
+  @Output()
+  public deleteFromWishlist = new EventEmitter<IProductDataFormat>();
 
   constructor() { }
 
@@ -34,13 +40,20 @@ export class ProductItemComponent {
     this.clickToContent.emit(this.item);
   }
 
-  public emitClickToCart(): void {
-    this.clickToCart.emit(this.item);
+  public emitClickToAddToCart(): void {
+    this.addToCart.emit(this.item);
   }
 
-  public emitClickToWish(): void {
-    this.clickToWish.emit(this.item);
+  public emitClickToDeleteFromCart(): void {
+    this.deleteFromCart.emit(this.item);
   }
 
+  public emitClickToAddToWishlist(): void {
+    this.addToWishlist.emit(this.item);
+  }
+
+  public emitClickToDeleteFromWishlist(): void {
+    this.deleteFromWishlist.emit(this.item);
+  }
 
 }

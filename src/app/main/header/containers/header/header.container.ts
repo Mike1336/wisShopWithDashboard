@@ -11,12 +11,11 @@ import { ReplaySubject } from 'rxjs';
 
 import { AuthService } from '../../../../auth/services/auth.service';
 import { NavbarService } from '../../../navbar/services/navbar.service';
-import { CartService } from '../../../cart/services/cart.service';
-import { Cart } from '../../../cart/classes/cart';
+import { CartService } from '../../../../core/services/cart.service';
 import { userRole } from '../../../../auth/interfaces/user';
+import { WishlistService } from '../../../../core/services/wishlist.service';
 
-import { Wishlist } from './../../../wishlist/classes/wishlist';
-import { WishlistService } from './../../../wishlist/services/wishlist.service';
+import { ICartResponseFormat, IProductResponseFormat } from './../../../../core/interfaces/data-formats';
 
 @Component({
   selector: 'app-header',
@@ -30,6 +29,9 @@ export class HeaderContainer implements OnInit, OnDestroy {
 
   public searchIsShow!: boolean;
 
+  public cartLength = 0;
+  public wishlistLength = 0;
+
   private _destroy$ = new ReplaySubject<void>(1);
 
   constructor(
@@ -40,14 +42,6 @@ export class HeaderContainer implements OnInit, OnDestroy {
     private _router: Router,
     private _cdRef: ChangeDetectorRef,
     ) { }
-
-  public get cart(): Cart {
-    return this._cartService.cart;
-  }
-
-  public get wishlist(): Wishlist {
-    return this._wishlistService.wishlist;
-  }
 
   public ngOnInit(): void {
     this._listenUrl();
@@ -70,24 +64,26 @@ export class HeaderContainer implements OnInit, OnDestroy {
   }
 
   private _listenCartChanges(): void {
-    this.cart.change$
+    this._cartService.data$
       .pipe(
         takeUntil(this._destroy$),
       )
       .subscribe(
-        () => {
+        ({ items }: ICartResponseFormat) => {
+          this.cartLength = items.length;
           this._cdRef.markForCheck();
         },
       );
   }
 
   private _listenWishlistChanges(): void {
-    this.wishlist.change$
+    this._wishlistService.data$
       .pipe(
         takeUntil(this._destroy$),
       )
       .subscribe(
-        () => {
+        ({ data: data }: IProductResponseFormat) => {
+          this.wishlistLength = data.length;
           this._cdRef.markForCheck();
         },
       );

@@ -7,11 +7,9 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { DeleteConfirmingComponent } from '../delete-confirming/delete-confirming.component';
-import { CartService } from '../../../cart/services/cart.service';
+import { CartService } from '../../../../core/services/cart.service';
 import { Wishlist } from '../../classes/wishlist';
-import { WishlistService } from '../../services/wishlist.service';
-import { Cart } from '../../../cart/classes/cart';
-
+import { WishlistService } from '../../../../core/services/wishlist.service';
 import { ItemDetailsComponent } from '../../../../layouts/item-details/components/item-details.component';
 import { IProductDataFormat } from '../../../../core/interfaces/data-formats';
 
@@ -32,16 +30,12 @@ export class WishlistComponent implements OnInit, OnDestroy {
     private _cdRef: ChangeDetectorRef,
   ) { }
 
-  public get cart(): Cart {
-    return this._cartService.cart;
-  }
-
-  public get wishlist(): Wishlist {
-    return this._wishlistService.wishlist;
+  public get wishlist(): WishlistService {
+    return this._wishlistService;
   }
 
   public ngOnInit(): void {
-    this._listenWishlistChanges();
+    // this._listenWishlistChanges();
   }
 
   public ngOnDestroy(): void {
@@ -64,7 +58,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
         if (!result) {
           return;
         }
-        this.deleteItem(item);
+        // this.deleteItem(item);
       });
   }
 
@@ -82,43 +76,38 @@ export class WishlistComponent implements OnInit, OnDestroy {
     });
   }
 
-  public deleteItem(item: IProductDataFormat): void {
-    this.wishlist.updateList(item);
-    this._snackBar.open(`${name} was deleted from your favorites`, 'OK', {
-      duration: 2000,
-    });
-  }
+  // public deleteItem(item: IProductDataFormat): void {
+  //   this.wishlist.updateList(item);
+  //   this._snackBar.open(`${name} was deleted from your favorites`, 'OK', {
+  //     duration: 2000,
+  //   });
+  // }
 
   public checkInCart(item: IProductDataFormat): void {
-    this.cart.updateList(item);
+    // this.cart.updateList(item);
 
-    if (this.cart.isExist(item)) {
-      this._snackBar.open(`${item.name} was successfully deleted from your cart`, 'OK', {
-        duration: 2000,
-      });
+    // if (this.cart.isExist(item)) {
+    //   this._snackBar.open(`${item.name} was successfully deleted from your cart`, 'OK', {
+    //     duration: 2000,
+    //   });
 
-      return;
-    }
-    this._snackBar.open(`${item.name} was successfully added to your cart`, 'OK', {
-      duration: 2000,
-    });
+    //   return;
+    // }
+    // this._snackBar.open(`${item.name} was successfully added to your cart`, 'OK', {
+    //   duration: 2000,
+    // });
   }
 
-  public checkItemForCart(item: IProductDataFormat): boolean {
-    // для отображения иконки товаров из корзины
-    return this.cart.isExist(item);
-  }
-
-  private _listenWishlistChanges(): void {
-    this.wishlist.change$
-      .pipe(
-        takeUntil(this._destroy$),
-      )
-      .subscribe(
-        () => {
-          this._cdRef.markForCheck();
-        },
-      );
-  }
+  // private _listenWishlistChanges(): void {
+  //   this.wishlist.change$
+  //     .pipe(
+  //       takeUntil(this._destroy$),
+  //     )
+  //     .subscribe(
+  //       () => {
+  //         this._cdRef.markForCheck();
+  //       },
+  //     );
+  // }
 
 }

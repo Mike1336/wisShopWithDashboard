@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject, ChangeDetectorRef } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { CartService } from '../../../main/cart/services/cart.service';
-import { WishlistService } from '../../../main/wishlist/services/wishlist.service';
-import { Wishlist } from '../../../main/wishlist/classes/wishlist';
-import { Cart } from '../../../main/cart/classes/cart';
+import { CartService } from '../../../core/services/cart.service';
+import { WishlistService } from '../../../core/services/wishlist.service';
 
 import { IProductDataFormat } from './../../../core/interfaces/data-formats';
 
@@ -22,54 +20,34 @@ export class ItemDetailsComponent {
     public item: IProductDataFormat,
     private _wistlistService: WishlistService,
     private _cartService: CartService,
-    private _snackBar: MatSnackBar,
-    private _cdRef: ChangeDetectorRef,
   ) {}
 
-  public get cart(): Cart {
-    return this._cartService.cart;
+  public get cart(): CartService {
+    return this._cartService;
   }
 
-  public get wishlist(): Wishlist {
-    return this._wistlistService.wishlist;
+  public get wishlist(): WishlistService {
+    return this._wistlistService;
   }
 
-  public checkInWishlist(item: IProductDataFormat): void {
-    this.wishlist.updateList(item);
-
-    if (this.wishlist.isExist(item)) {
-      this._snackBar.open(`${item.name} was successfully added to your wishlist`, 'OK', {
-        duration: 2000,
-      });
-
-      return;
-    }
-    this._snackBar.open(`${item.name} was successfully deleted from your wishlist`, 'OK', {
-      duration: 2000,
-    });
-
+  public get loading$(): Observable<boolean> {
+    return this.cart.loadingStatus$;
   }
-  public checkInCart(item: IProductDataFormat): void {
-    this.cart.updateList(item);
 
-    if (this.cart.isExist(item)) {
-      this._snackBar.open(`${item.name} was successfully added to your cart`, 'OK', {
-        duration: 2000,
-      });
+  public addToCart(): void {
+    this.cart.add(this.item);
+  }
 
-      return;
-    }
-    this._snackBar.open(`${item.name} was successfully deleted from your cart`, 'OK', {
-      duration: 2000,
-    });
+  public deleteFromCart(): void {
+    this.cart.delete(this.item);
   }
-  public checkWishlistExisting(item: IProductDataFormat): boolean {
-    // для отображения иконки избранных товаров
-    return this.wishlist.isExist(item);
+
+  public addToWishlist(): void {
+    this.wishlist.add(this.item);
   }
-  public checkCartExisting(item: IProductDataFormat): boolean {
-    // для отображения иконки избранных товаров
-    return this.cart.isExist(item);
+
+  public deleteFromWishlist(): void {
+    this.wishlist.delete(this.item);
   }
 
 }
