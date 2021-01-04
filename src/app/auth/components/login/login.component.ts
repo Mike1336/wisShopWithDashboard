@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 
 import { Observable } from 'rxjs';
 
-import { IUser } from '../../interfaces/user';
+import { ILoginData } from '../../interfaces/auth';
 
 @Component({
   selector: 'login-component',
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   public formError!: string;
 
   @Output()
-  public submitForm: EventEmitter<IUser> = new EventEmitter();
+  public submitForm: EventEmitter<ILoginData> = new EventEmitter();
 
   public loginForm!: FormGroup;
 
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   public submit(): void {
-    const user: IUser = {
+    const user: ILoginData = {
       email: this.email?.value,
       password: this.password?.value,
     };

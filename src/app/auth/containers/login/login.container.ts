@@ -5,7 +5,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { AuthService } from '../../services/auth.service';
-import { IUser } from '../../interfaces/user';
+import { IUser } from '../../interfaces/auth';
 import { LoginComponent } from '../../components/login/login.component';
 
 @Component({

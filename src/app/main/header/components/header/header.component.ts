@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
 
-import { userRole } from '../../../../auth/interfaces/user';
+import { userRole } from '../../../../auth/interfaces/auth';
 
 @Component({
   selector: 'header-component',

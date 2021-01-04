@@ -13,12 +13,14 @@ import { ItemDetailsModule } from '../../layouts/item-details/item-details.modul
 import { DeleteConfirmingComponent } from './components/delete-confirming/delete-confirming.component';
 import { WishlistRoutingModule } from './wishlist-routing.module';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
+// import { WishlistContainer } from './containers/wishlist/wishlist.container';
 
 
 @NgModule({
   declarations: [
     WishlistComponent,
     DeleteConfirmingComponent,
+    // WishlistContainer,
   ],
   imports: [
     // Angular

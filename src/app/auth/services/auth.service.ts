@@ -4,9 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-import { IFbResponse } from '../interfaces/fb-response';
-import { IUser, userRole } from '../interfaces/user';
+import { ITokens, ILoginFormData, userRole, IJWTPayload } from '../interfaces/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +12,11 @@ import { IUser, userRole } from '../interfaces/user';
 )
 export class AuthService {
 
+  public now = new Date().getTime();
+
   public expTimeOfToken = 0;
+
+  private _authUrl = '/auth/jwt/';
 
   private _userRole$ = new ReplaySubject<userRole>(1);
 
@@ -43,67 +45,77 @@ export class AuthService {
   }
 
   public get token(): string | null {
-    if (!sessionStorage.getItem('fb-token-exp')) {
-      this._userRole$.next('guest');
-
-      return null;
-    }
-    const now = +(new Date().getTime());
-    this.expTimeOfToken = +(new Date(sessionStorage.getItem('fb-token-exp') ?? '').getTime());
-    if (now > this.expTimeOfToken) {
-      this.logout();
-
-      return null;
-    }
-    this._userRole$.next('admin');
-
-    return sessionStorage.getItem('fb-token');
+    return sessionStorage.getItem('access-token');
   }
 
   public changeLoadingStatus(data: boolean): void {
     this._checkingDataForLogin$.next(data);
   }
 
-  public login(user: IUser): void {
-    user.returnSecureToken = true;
-
+  public login(user: ILoginFormData): void {
     this._http.post(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
-        environment.apiKey
-      }`, user)
+      `${this._authUrl}/create`, user)
       .subscribe({
-        next: (response: IFbResponse | any) => {
+        next: (response: ITokens | any) => {
+          if (!response || !('access' in response) || !('refresh' in response)) {
+            console.error('Invalid response: ', response);
+          }
+          console.log(response);
+
           this._setToken(response);
           this._login$.next();
         },
         error: (error) => {
+          console.log(error)
           this._login$.error(error);
         },
       });
   }
 
   public logout(): void {
-    this._setToken(null);
+    sessionStorage.clear();
   }
 
   public isAuth(): boolean {
     return !!this.token;
   }
 
-  private _setToken(response: IFbResponse | any): void {
-    if (!response || !('idToken' in response)) {
-      sessionStorage.clear();
-      this._userRole$.next('guest');
+  private _setToken(response: ITokens): void {
+    this.expTimeOfToken = +(new Date(this._getExpiresTime(response.access)).getTime());
 
-      return;
-    }
+    sessionStorage.setItem('access-token', response.access);
+    sessionStorage.setItem('refresh-token', response.refresh);
+    sessionStorage.setItem('token-exp', this.expTimeOfToken.toString());
 
-    const now = new Date().getTime();
-    const expDate = new Date(now + (+response.expiresIn * 1000));
-
-    sessionStorage.setItem('fb-token', response.idToken);
-    sessionStorage.setItem('fb-token-exp', expDate.toString());
     this._userRole$.next('admin');
+  }
+
+  private _getExpiresTime(token: string): number {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c: string) => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    const payload: IJWTPayload = JSON.parse(jsonPayload);
+
+    return payload.exp;
+  }
+
+  private _getNewAccessToken(): void {
+    const refresh = sessionStorage.getItem('refresh-token');
+
+    this._http.post(`${this._authUrl}/refresh`, { refresh })
+      .subscribe({
+        next: (response: ITokens | any) => {
+          this._setToken(response);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+
   }
 
 }

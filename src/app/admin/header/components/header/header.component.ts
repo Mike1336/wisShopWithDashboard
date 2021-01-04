@@ -2,7 +2,7 @@ import {
   Component, Output, EventEmitter, ChangeDetectionStrategy, Input, OnInit, ChangeDetectorRef 
 } from '@angular/core';
 
-import { userRole } from '../../../../auth/interfaces/user';
+import { userRole } from '../../../../auth/interfaces/auth';
 
 @Component({
   selector: 'header-component',

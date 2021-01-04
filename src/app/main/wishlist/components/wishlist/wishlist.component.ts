@@ -1,113 +1,41 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-
-import { DeleteConfirmingComponent } from '../delete-confirming/delete-confirming.component';
-import { CartService } from '../../../../core/services/cart.service';
-import { Wishlist } from '../../classes/wishlist';
-import { WishlistService } from '../../../../core/services/wishlist.service';
-import { ItemDetailsComponent } from '../../../../layouts/item-details/components/item-details.component';
-import { IProductDataFormat } from '../../../../core/interfaces/data-formats';
+import { ICartItemFormat, IProductDataFormat } from '../../../../core/interfaces/data-formats';
 
 @Component({
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WishlistComponent implements OnInit, OnDestroy {
+export class WishlistComponent {
 
-  private _destroy$ = new Subject<void>();
+  @Input()
+  public items!: IProductDataFormat[];
 
-  constructor(
-    public dialog: MatDialog,
-    private _cartService: CartService,
-    private _wishlistService: WishlistService,
-    private _snackBar: MatSnackBar,
-    private _cdRef: ChangeDetectorRef,
-  ) { }
+  @Output()
+  private clickOnProduct = new EventEmitter<IProductDataFormat>();
 
-  public get wishlist(): WishlistService {
-    return this._wishlistService;
+  @Output()
+  private deleteItem = new EventEmitter<IProductDataFormat>();
+
+  @Output()
+  private clickOnCart = new EventEmitter<IProductDataFormat>();
+
+  constructor() { }
+
+  public emitClickOnProduct(product: ICartItemFormat): void {
+    this.clickOnProduct.emit(product);
   }
 
-  public ngOnInit(): void {
-    // this._listenWishlistChanges();
+  public emitClickToDeleteFromWishlist(product: ICartItemFormat): void {
+    this.deleteItem.emit(product);
   }
 
-  public ngOnDestroy(): void {
-    this._destroy$.next();
-    this._destroy$.complete();
+  public emitClickToAddToCart(product: ICartItemFormat): void {
+    this.clickOnCart.emit(product);
   }
-
-  public openDeleteConfirming(item: IProductDataFormat): void {
-  // отправление данных в компонент модалки после открытия
-    const confirmModal = this.dialog.open(DeleteConfirmingComponent, {
-      data: {
-        name: item.name,
-      },
-    });
-    confirmModal.afterClosed()
-      .pipe(
-        takeUntil(this._destroy$),
-        )
-      .subscribe((result) => { // получение данных после закрытия
-        if (!result) {
-          return;
-        }
-        // this.deleteItem(item);
-      });
+  public emitClickToDeleteFromCart(product: ICartItemFormat): void {
+    this.clickOnCart.emit(product);
   }
-
-  public openItemDetails({ id, name, brand, price, mainImage, images }: IProductDataFormat): void {
-  // отправление данных в компонент модалки после открытия
-    this.dialog.open(ItemDetailsComponent, {
-      data: {
-        id,
-        name,
-        brand,
-        price,
-        mainImage,
-        images,
-      },
-    });
-  }
-
-  // public deleteItem(item: IProductDataFormat): void {
-  //   this.wishlist.updateList(item);
-  //   this._snackBar.open(`${name} was deleted from your favorites`, 'OK', {
-  //     duration: 2000,
-  //   });
-  // }
-
-  public checkInCart(item: IProductDataFormat): void {
-    // this.cart.updateList(item);
-
-    // if (this.cart.isExist(item)) {
-    //   this._snackBar.open(`${item.name} was successfully deleted from your cart`, 'OK', {
-    //     duration: 2000,
-    //   });
-
-    //   return;
-    // }
-    // this._snackBar.open(`${item.name} was successfully added to your cart`, 'OK', {
-    //   duration: 2000,
-    // });
-  }
-
-  // private _listenWishlistChanges(): void {
-  //   this.wishlist.change$
-  //     .pipe(
-  //       takeUntil(this._destroy$),
-  //     )
-  //     .subscribe(
-  //       () => {
-  //         this._cdRef.markForCheck();
-  //       },
-  //     );
-  // }
 
 }

@@ -12,7 +12,7 @@ import { ReplaySubject } from 'rxjs';
 import { AuthService } from '../../../../auth/services/auth.service';
 import { NavbarService } from '../../../navbar/services/navbar.service';
 import { CartService } from '../../../../core/services/cart.service';
-import { userRole } from '../../../../auth/interfaces/user';
+import { userRole } from '../../../../auth/interfaces/auth';
 import { WishlistService } from '../../../../core/services/wishlist.service';
 
 import { ICartResponseFormat, IProductResponseFormat } from './../../../../core/interfaces/data-formats';
